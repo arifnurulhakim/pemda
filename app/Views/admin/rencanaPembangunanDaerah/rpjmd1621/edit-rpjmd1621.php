@@ -7,7 +7,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="/rpjmd1621/edit" method="POST" enctype="multipart/form-data">
+            <form action="/rpjmd1621/edit/<?= $id_rpjmd1621 ?>" method="POST" enctype="multipart/form-data">
                 <?= csrf_field(); ?>
                 <div class="row mb-3">
                     <div class="col">

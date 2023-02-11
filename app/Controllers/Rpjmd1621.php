@@ -238,9 +238,9 @@ class Rpjmd1621 extends BaseController
     ])) {
       //Berisi fungsi redirect jika validasi tidak memenuhi
       // dd(\Config\Services::validation()->getErrors());
-      return redirect()->to('../admin/rpjmd1621/update')->withInput();
+      return redirect()->to('Rpjmd1621/');
     }
-
+  
     $user_id = user();
     // $slug = url_title($this->request->getVar('nama_indikator'), '-', true);
     if ($this->Rpjmd1621Model->update($id_rpjmd1621, [
@@ -289,8 +289,6 @@ class Rpjmd1621 extends BaseController
         'misi' => $this->MisiModel->orderby('nama_misi')->findAll(),
         'ikudanikd1621' => $this->Ikudanikd1621Model->orderby('nama_indikator')->findAll(),
         'validation' => \Config\Services::validation(),
-
-       
         'id_rpjmd1621' => $id_rpjmd1621,
         'id_misi' => $misi,
         'id_ikudanikd1621_data' => $id_ikudanikd1621,
@@ -308,14 +306,9 @@ class Rpjmd1621 extends BaseController
 
       // dd($data);
       // return view('admin/index',$data);
-      
+   
       return view('admin/rencanaPembangunanDaerah/rpjmd1621/edit-rpjmd1621', $data);
   }
-  
-
-   
-   
-  
 
   // wisata
   public function cari()

@@ -134,6 +134,7 @@ $routes->get('/admin/rpjmd1621/create', 'rpjmd1621::create', ['filter' => 'role:
 $routes->get('/admin/rpjmd1621/edit', 'rpjmd1621::edit', ['filter' => 'role:admin']);
 $routes->delete('/admin/rpjmd1621/(:num)', 'rpjmd1621::delete/$1', ['filter' => 'role:admin']);
 $route['rpjmd1621/delete/(:num)'] = 'Rpjmd1621Controller/delete/$1';
+$route['rpjmd1621/edit/(:num)'] = 'Rpjmd1621Controller/edit/$1';
 $routes->get('/admin/rpjmd1621/detail-rpjmd1621/(:segment)', 'rpjmd1621::detail/$1');
 $routes->post('/admin/rpjmd1621/create-rpjmd1621', 'rpjmd1621::save', ['filter' => 'role:admin']);
 $routes->put('/admin/rpjmd1621/update-rpjmd1621', 'rpjmd1621::edit', ['filter' => 'role:admin']);
@@ -141,7 +142,7 @@ $routes->get('/admin/rpjmd1621/edit-rpjmd1621/(:segment)', 'rpjmd1621::edit/$1',
 $routes->post('/admin/rpjmd1621/edit-rpjmd1621/(:num)', 'rpjmd1621::update/$1', ['filter' => 'role:admin']);
 
 $routes->get('/admin/rpjmd1621/exportExcel', 'rpjmd1621::exportExcel', ['filter' => 'role:admin']);
-$routes->resource('/admin/rpjmd1621/',['filter' => 'role:admin']);
+
 // RPJMD 2126
 $routes->get('/admin/dashboard', 'Admin::dashboard', ['filter' => 'role:admin']);
 $routes->get('/admin/rpjmd2126', 'Rpjmd2126::index', ['filter' => 'role:admin']);
