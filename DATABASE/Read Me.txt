@@ -1,0 +1,2 @@
+Buat database dengan nama 'dbvisitbaubau'
+lalu import file sql yang berada di folder DATABASE

@@ -1,0 +1,117 @@
+$user_id = user();
+      $alldata = $this->Rpjmd1621Model->getdataupdate($id_rpjmd1621);
+      $misi = $alldata[0]['id_misi'];
+      $id_rpjmd1621_data = $alldata[0]['id_rpjmd1621'];
+      $id_ikudanikd1621	= $alldata[0]['id_misi'];
+      $t17	= $alldata[0]['t17'];
+      $r17	= $alldata[0]['r17'];
+      $t18	= $alldata[0]['t18'];
+      $r18	= $alldata[0]['r18'];
+      $t19	= $alldata[0]['t19'];
+      $r19	= $alldata[0]['r19'];
+      $t20	= $alldata[0]['t20'];
+      $r20	= $alldata[0]['r20'];
+      $t21	= $alldata[0]['t21'];
+      $r21	= $alldata[0]['r21'];
+      return view('admin\rencanaPembangunanDaerah\rpjmd1621\edit-rpjmd1621', [
+        'title' => 'rpjmd1621',
+        'ikudanikd1621' => $this->Ikudanikd1621Model->orderby('nama_indikator')->findAll(),
+        'misi' => $this->MisiModel->orderby('nama_misi')->findAll(),
+        'validation' => \Config\Services::validation(),
+        'id_rpjmd1621' => $id_rpjmd1621,
+        'id_misi' => $misi,
+        'id_ikudanikd1621_data' => $id_ikudanikd1621,
+        't17' => $t17,
+        'r17' => $r17,
+        't18' => $t18,
+        'r18' => $r18,
+        't19' => $t19,
+        'r19' => $r19,
+        't20' => $t20,
+        'r20' => $r20,
+        't21' => $t21,
+        'r21' => $r21
+    ]);
+    if (!$this->validate([
+      'id_misi' => [
+        'rules' => 'required',
+        'label' => 'id_misi',
+        'errors' => [
+          'required' => 'Misi harus dipilih',
+          'is_unique' => 'Misi sudah digunakan'
+        ]
+      ],
+      'id_ikudanikd1621' => [
+        'rules' => 'required',
+        'label' => 'id_ikudanikd1621',
+        'errors' => [
+          'required' => 'IKU/IKD harus dipilih',
+          'is_unique' => 'IKU/IKD sudah digunakan'
+        ]
+      ],
+
+      't17' => [
+        'rules' => 'required',
+        'label' => 't17',
+        'errors' => [
+          'required' => 'Target 2017 harus diisi'
+        ]
+      ],
+      't18' => [
+        'rules' => 'required',
+        'label' => 't18',
+        'errors' => [
+          'required' => 'Target 2018  harus diisi'
+        ]
+      ],
+      't19' => [
+        'rules' => 'required',
+        'label' => 't19',
+        'errors' => [
+          'required' => 'Target 2019  harus diisi'
+        ]
+      ],
+      't20' => [
+        'rules' => 'required',
+        'label' => 't20',
+        'errors' => [
+          'required' => 'Target 2020 harus diisi'
+        ]
+      ],
+      't21' => [
+        'rules' => 'required',
+        'label' => 't21',
+        'errors' => [
+          'required' => 'Target 2021 harus diisi'
+        ]
+      ]
+    ])) {
+      //Berisi fungsi redirect jika validasi tidak memenuhi
+      // dd(\Config\Services::validation()->getErrors());
+      
+      // $slug = url_title($this->request->getVar('nama_indikator'), '-', true);
+    if ($this->Rpjmd1621Model->edit([
+      
+      // 'id_user'     => $this->request->$user_id,
+      // 'id_user'     => $this->request->user_id,
+      'id_misi' => $this->request->getVar('id_misi'),
+      'id_ikudanikd1621' => $this->request->getVar('id_ikudanikd1621'),
+      // 'slug' => $slug,
+      't17' => $this->request->getVar('t17'),
+      't18' => $this->request->getVar('t18'),
+      't19' => $this->request->getVar('t19'),
+      't20' => $this->request->getVar('t20'),
+      't21' => $this->request->getVar('t21'),
+      'r17' => $this->request->getVar('r17'),
+      'r18' => $this->request->getVar('r18'),
+      'r19' => $this->request->getVar('r19'),
+      'r20' => $this->request->getVar('r20'),
+      'r21' => $this->request->getVar('r21'),
+    ])) {
+      // dd($_SESSION);
+      // dd($this->request->getVar());
+      session()->setFlashdata('success', 'Data berhasil diupdate!');
+    } else {
+      session()->setFlashdata('error', 'Data gagal update!');
+    }
+    return redirect()->to('admin/rpjmd1621/data');
