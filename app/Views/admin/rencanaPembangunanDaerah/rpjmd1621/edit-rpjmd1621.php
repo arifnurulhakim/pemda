@@ -13,11 +13,11 @@
                     <div class="col">
                     <input type="TEXT" name="id_rpjmd1621" value="<?= $id_rpjmd1621 ?>">
                         <label for="id_misi"><b>Misi</b></label>&nbsp;&nbsp;<span class="badge badge-light bg-gray-200" style="color: grey;"><b>Wajib</b></span></label>
-                        <select class="form-control <?= $validation->hasError('id_misi') ? 'is-invalid' : ''; ?>" id="id_misi" name="id_misi">
+                        <select class="form-control <?= $validation->hasError('id_misi') ? 'is-invalid' : ''; ?>" id="id_misi" name="id_misi" >
 
-                            <option value=""><?=$id_misi?></option>
+                           
                             <?php foreach ($misi as $ms) : ?>
-                                <option value="<?=$id_misi?>" id="id_misi" <?= old('id_misi') == $ms['id_misi'] ? 'selected' : ''; ?>>
+                                <option value="<?=$ms['id_misi']?>" id="id_misi" <?= $id_misi == $ms['id_misi'] ? 'selected' : ''; ?>>
                                     <?= $ms['nama_misi']; ?>
                                 </option>
                             <?php endforeach; ?>
@@ -30,11 +30,11 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="id_ikudanikd1621"><b>IKU / IKD</b></label>&nbsp;&nbsp;<span class="badge badge-light bg-gray-200" style="color: grey;"><b>Wajib</b></span>
-                        <input type="text" style="width: 100%; background: #ffff;" name="nama_indikator" id="nama_indikator" onclick="myFunction_ikuikd()" class="form-control " placeholder="<?=$id_ikudanikd1621_data?>" readonly style="width:200px" />
-                        <input type="hidden" vlaue="<?=$id_ikudanikd1621_data?>" name="id_ikudanikd1621" id="id_ikudanikd1621" class="form-control <?= $validation->hasError('id_ikudanikd1621') ? 'is-invalid' : ''; ?>" />
+                        <input type="text" style="width: 100%; background: #ffff;" name="nama_indikator" id="nama_indikator" onclick="myFunction_ikuikd()" class="form-control " placeholder="-Pilih IKU / IKD-" readonly style="width:200px" />
+                        <input type="hidden" name="id_ikudanikd1621" id="id_ikudanikd1621" class="form-control <?= $validation->hasError('id_ikudanikd1621') ? 'is-invalid' : ''; ?>" />
                         <div id="myDropdownIkuikd" class="dropdown-content" style="height: 200px; width: 300px; overflow-y: scroll;">
                             <input type="text" placeholder="Search.." id="myInputIkuikd" onkeyup="filterFunction_ikuikd()">
-                            <a onclick="empty_ikuikd()"></a>
+                            <a onclick="empty_ikuikd()">-Pilih IKU / IKD-</a>
                             <!-- ni untuk selectnya, boleh disesuaikan dengan kaurang punya, saya disini pakai mysqli_fetch_array dan kau rang beda, jadi sesuaikan aja -->
                             <?php foreach ($ikudanikd1621 as $ikudanikd1621_1) : ?>
                                 <a onclick="autofill_choose_ikuikd('<?= $ikudanikd1621_1['id_ikudanikd1621']; ?>','<?= $ikudanikd1621_1['nama_indikator']; ?>')">
@@ -123,7 +123,7 @@
                     </div>
                 </div>
 
-                <button type='submit' class="btn btn-primary" href="/rpjmd1621/update">Tambah Data</button>
+                <button type='submit' class="btn btn-primary" >Edit Data</button>
                 <button class="btn btn-danger" type="reset">Batal</button>
             </form>
         </div>

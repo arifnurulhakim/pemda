@@ -182,64 +182,64 @@ class Rpjmd1621 extends BaseController
 
   public function edit($id_rpjmd1621)
   {
-    if (!$this->validate([
-      'id_misi' => [
-        'rules' => 'required',
-        'label' => 'id_misi',
-        'errors' => [
-          'required' => 'Misi harus dipilih',
-          'is_unique' => 'Misi sudah digunakan'
-        ]
-      ],
-      'id_ikudanikd1621' => [
-        'rules' => 'required',
-        'label' => 'id_ikudanikd1621',
-        'errors' => [
-          'required' => 'IKU/IKD harus dipilih',
-          'is_unique' => 'IKU/IKD sudah digunakan'
-        ]
-      ],
+    // if (!$this->validate([
+    //   'id_misi' => [
+    //     'rules' => 'required',
+    //     'label' => 'id_misi',
+    //     'errors' => [
+    //       'required' => 'Misi harus dipilih',
+    //       'is_unique' => 'Misi sudah digunakan'
+    //     ]
+    //   ],
+    //   'id_ikudanikd1621' => [
+    //     'rules' => 'required',
+    //     'label' => 'id_ikudanikd1621',
+    //     'errors' => [
+    //       'required' => 'IKU/IKD harus dipilih',
+    //       'is_unique' => 'IKU/IKD sudah digunakan'
+    //     ]
+    //   ],
 
-      't17' => [
-        'rules' => 'required',
-        'label' => 't17',
-        'errors' => [
-          'required' => 'Target 2017 harus diisi'
-        ]
-      ],
-      't18' => [
-        'rules' => 'required',
-        'label' => 't18',
-        'errors' => [
-          'required' => 'Target 2018  harus diisi'
-        ]
-      ],
-      't19' => [
-        'rules' => 'required',
-        'label' => 't19',
-        'errors' => [
-          'required' => 'Target 2019  harus diisi'
-        ]
-      ],
-      't20' => [
-        'rules' => 'required',
-        'label' => 't20',
-        'errors' => [
-          'required' => 'Target 2020 harus diisi'
-        ]
-      ],
-      't21' => [
-        'rules' => 'required',
-        'label' => 't21',
-        'errors' => [
-          'required' => 'Target 2021 harus diisi'
-        ]
-      ]
-    ])) {
-      //Berisi fungsi redirect jika validasi tidak memenuhi
-      // dd(\Config\Services::validation()->getErrors());
-      return redirect()->to('Rpjmd1621/');
-    }
+    //   't17' => [
+    //     'rules' => 'required',
+    //     'label' => 't17',
+    //     'errors' => [
+    //       'required' => 'Target 2017 harus diisi'
+    //     ]
+    //   ],
+    //   't18' => [
+    //     'rules' => 'required',
+    //     'label' => 't18',
+    //     'errors' => [
+    //       'required' => 'Target 2018  harus diisi'
+    //     ]
+    //   ],
+    //   't19' => [
+    //     'rules' => 'required',
+    //     'label' => 't19',
+    //     'errors' => [
+    //       'required' => 'Target 2019  harus diisi'
+    //     ]
+    //   ],
+    //   't20' => [
+    //     'rules' => 'required',
+    //     'label' => 't20',
+    //     'errors' => [
+    //       'required' => 'Target 2020 harus diisi'
+    //     ]
+    //   ],
+    //   't21' => [
+    //     'rules' => 'required',
+    //     'label' => 't21',
+    //     'errors' => [
+    //       'required' => 'Target 2021 harus diisi'
+    //     ]
+    //   ]
+    // ])) {
+    //   //Berisi fungsi redirect jika validasi tidak memenuhi
+    //   // dd(\Config\Services::validation()->getErrors());
+    //   return redirect()->to('Rpjmd1621/');
+    // }
   
     $user_id = user();
     // $slug = url_title($this->request->getVar('nama_indikator'), '-', true);
