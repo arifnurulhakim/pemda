@@ -74,7 +74,9 @@ class Rpjmd1621Model extends Model
     return $this->db->table($this->table)->delete(['id_rpjmd1621' => $id_rpjmd1621]);
   }
   public function getdataupdate($id_rpjmd1621){
-    return $this->db->table($this->table)->get()->getResultArray();
+
+    return $this->db->table($this->table)->where('id_rpjmd1621', $id_rpjmd1621)->get()->getResultArray();
+
     
   }
 }

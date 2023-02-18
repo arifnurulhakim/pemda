@@ -11,17 +11,24 @@
                 <?= csrf_field(); ?>
                 <div class="row mb-3">
                     <div class="col">
-                    <input type="TEXT" name="id_rpjmd1621" value="<?= $id_rpjmd1621 ?>">
                         <label for="id_misi"><b>Misi</b></label>&nbsp;&nbsp;<span class="badge badge-light bg-gray-200" style="color: grey;"><b>Wajib</b></span></label>
                         <select class="form-control <?= $validation->hasError('id_misi') ? 'is-invalid' : ''; ?>" id="id_misi" name="id_misi" >
+    <?php foreach ($misi as $ms) : ?>
+        <?php if ($id_misi == $ms['id_misi']) : ?>
+            <option value="<?= $ms['id_misi'] ?>" selected>
+                <?= $ms['nama_misi'] ?>
+            </option>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <?php foreach ($misi as $ms) : ?>
+        <?php if ($id_misi != $ms['id_misi']) : ?>
+            <option value="<?= $ms['id_misi'] ?>">
+                <?= $ms['nama_misi'] ?>
+            </option>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</select>
 
-                           
-                            <?php foreach ($misi as $ms) : ?>
-                                <option value="<?=$ms['id_misi']?>" id="id_misi" <?= $id_misi == $ms['id_misi'] ? 'selected' : ''; ?>>
-                                    <?= $ms['nama_misi']; ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
                         <div class="invalid-feedback">
                             <?= $validation->getError('id_misi'); ?>
                         </div>
@@ -29,20 +36,35 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="id_ikudanikd1621"><b>IKU / IKD</b></label>&nbsp;&nbsp;<span class="badge badge-light bg-gray-200" style="color: grey;"><b>Wajib</b></span>
-                        <input type="text" style="width: 100%; background: #ffff;" name="nama_indikator" id="nama_indikator" onclick="myFunction_ikuikd()" class="form-control " placeholder="-Pilih IKU / IKD-" readonly style="width:200px" />
-                        <input type="hidden" name="id_ikudanikd1621" id="id_ikudanikd1621" class="form-control <?= $validation->hasError('id_ikudanikd1621') ? 'is-invalid' : ''; ?>" />
-                        <div id="myDropdownIkuikd" class="dropdown-content" style="height: 200px; width: 300px; overflow-y: scroll;">
-                            <input type="text" placeholder="Search.." id="myInputIkuikd" onkeyup="filterFunction_ikuikd()">
-                            <a onclick="empty_ikuikd()">-Pilih IKU / IKD-</a>
-                            <!-- ni untuk selectnya, boleh disesuaikan dengan kaurang punya, saya disini pakai mysqli_fetch_array dan kau rang beda, jadi sesuaikan aja -->
-                            <?php foreach ($ikudanikd1621 as $ikudanikd1621_1) : ?>
-                                <a onclick="autofill_choose_ikuikd('<?= $ikudanikd1621_1['id_ikudanikd1621']; ?>','<?= $ikudanikd1621_1['nama_indikator']; ?>')">
-                                    <?= $ikudanikd1621_1['nama_indikator']; ?>
-                                </a>
+                    
+                        <label for="id_ikudanikd1621"><b>IKU / IKD</b></label>&nbsp;&nbsp;<span class="badge badge-light bg-gray-200" style="color: grey;"><b>Wajib</b></span></label>
+                            <!-- tambahkan input teks untuk pencarian -->
 
-                            <?php endforeach; ?>
-                        </div>
+                            <!-- tambahkan daftar item -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="search-box" placeholder="Cari indikator...">
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control <?= $validation->hasError('id_ikudanikd1621') ? 'is-invalid' : ''; ?>" id="id_ikudanikd1621" name="id_ikudanikd1621">
+                                    <?php foreach ($ikudanikd1621 as $ikudanikd1621_1) : ?>
+                                        <?php if ($id_ikudanikd1621 == $ikudanikd1621_1['id_ikudanikd1621']) : ?>
+                                        <option value="<?= $ikudanikd1621_1['id_ikudanikd1621'] ?>" selected>
+                                            <?= $ikudanikd1621_1['nama_indikator'] ?>
+                                        </option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                    <?php foreach ($ikudanikd1621 as $ikudanikd1621_1) : ?>
+                                        <?php if ($id_ikudanikd1621 != $ikudanikd1621_1['id_ikudanikd1621']) : ?>
+                                        <option value="<?= $ikudanikd1621_1['id_ikudanikd1621'] ?>">
+                                            <?= $ikudanikd1621_1['nama_indikator']  ?>
+                                        </option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                </div>
+
                         <div class="invalid-feedback">
                             <?= $validation->getError('id_ikudanikd1621'); ?>
                         </div>
@@ -123,11 +145,13 @@
                     </div>
                 </div>
 
-                <button type='submit' class="btn btn-primary" >Edit Data</button>
-                <button class="btn btn-danger" type="reset">Batal</button>
+                <button type='submit' class="btn btn-primary">Edit Data</button>
+                <button class="btn btn-danger" type="reset" href="/rpjmd1621/index">Batal</button>
             </form>
         </div>
     </div>
 </div>
+
+
 
 <?= $this->endSection(); ?>

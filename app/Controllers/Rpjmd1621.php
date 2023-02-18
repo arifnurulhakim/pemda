@@ -270,9 +270,8 @@ class Rpjmd1621 extends BaseController
   public function update($id_rpjmd1621)
   {
     $alldata = $this->Rpjmd1621Model->getdataupdate($id_rpjmd1621);
-    $misi = $alldata[0]['id_misi'];
-    $id_rpjmd1621_data = $alldata[0]['id_rpjmd1621'];
-    $id_ikudanikd1621	= $alldata[0]['id_misi'];
+    $id_ikudanikd1621 = $alldata[0]['id_ikudanikd1621'];
+    $misi	= $alldata[0]['id_misi'];
     $t17	= $alldata[0]['t17'];
     $r17	= $alldata[0]['r17'];
     $t18	= $alldata[0]['t18'];
@@ -291,7 +290,7 @@ class Rpjmd1621 extends BaseController
         'validation' => \Config\Services::validation(),
         'id_rpjmd1621' => $id_rpjmd1621,
         'id_misi' => $misi,
-        'id_ikudanikd1621_data' => $id_ikudanikd1621,
+        'id_ikudanikd1621' => $id_ikudanikd1621,
         't17' => $t17,
         'r17' => $r17,
         't18' => $t18,
@@ -481,5 +480,11 @@ class Rpjmd1621 extends BaseController
       't21' => $t21,
       'r21' => $r21
   ]);
+  }
+  public function delete($id_rpjmd1621)
+  {
+    $this->Rpjmd1621Model->deleteData($id_rpjmd1621);
+    session()->setFlashdata('success', 'Data berhasil dihapus!');
+    return redirect()->to('/rpjmd1621')->withInput();
   }
 }

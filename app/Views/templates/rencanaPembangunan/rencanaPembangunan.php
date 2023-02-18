@@ -539,6 +539,53 @@
     }
   </script>
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<!-- tambahkan script untuk menyaring item daftar -->
+<script>
+    $(document).ready(function() {
+        // saat input teks berubah, filter item daftar
+        $('#search-box').on('input', function() {
+            var value = $(this).val().toLowerCase();
+            $('#id_ikudanikd1621 option').filter(function() {
+                return $(this).text().toLowerCase().indexOf(value) > -1;
+            }).show().prop('selected', false).first().prop('selected', true);
+            $('#id_ikudanikd1621 option').filter(function() {
+                return $(this).text().toLowerCase().indexOf(value) === -1;
+            }).hide();
+        });
+    });
+</script>
+<!-- <script>
+$(document).ready(function() {
+  $('#id_ikudanikd1621').select2({
+    placeholder: 'Pilih indikator',
+    allowClear: true,
+    minimumInputLength: 3,
+    ajax: {
+      url: 'path/to/your/search/endpoint',
+      dataType: 'json',
+      delay: 250,
+      data: function (params) {
+        return {
+          q: params.term, // search term
+        };
+      },
+      processResults: function (data) {
+        return {
+          results: $.map(data, function(obj) {
+            return { id: obj.id_ikudanikd1621, text: obj.nama_indikator };
+          })
+        };
+      },
+      cache: true
+    }
+  });
+});
+</script> -->
+
+
+
 </body>
 
 </html>

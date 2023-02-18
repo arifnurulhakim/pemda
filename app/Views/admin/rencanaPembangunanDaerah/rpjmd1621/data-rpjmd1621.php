@@ -372,7 +372,7 @@ $(document).ready(function() {
         var button = $(event.relatedTarget)
         var id_rpjmd1621 = button.data('id_rpjmd1621')
         var modal = $(this)
-        modal.find('.del-button').attr('href', '/rpjmd1621/deleteData/' + id_rpjmd1621)
+        modal.find('.del-button').attr('href', '/rpjmd1621/delete/' + id_rpjmd1621)
     })
 })
 </script>
