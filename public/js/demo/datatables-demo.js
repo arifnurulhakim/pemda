@@ -55,7 +55,7 @@ $(document).ready(function () {
 $(document).ready(function () {
   $('#dataTableRpjmd1621').DataTable({
     initComplete: function () {
-      this.api().columns([2]).every(function () {
+      this.api().columns([3]).every(function () {
         var column = this;
         var select = $('<select><option value="">Jenis Indikator</option></select>')
           .appendTo($(column.header()).empty())

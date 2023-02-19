@@ -78,7 +78,7 @@ abstract class BaseController extends Controller
 
 
         // rkpd
-        $this->Rkpd21Model = new \App\Models\Rkpd21Model();
+        // $this->Rkpd21Model = new \App\Models\Rkpd21Model();
         // $this->Rkpd22Model = new \App\Models\Rkpd22Model();
         // $this->Rkpd23Model = new \App\Models\Rkpd23Model();
         // $this->Rkpd24Model = new \App\Models\Rkpd24Model();
@@ -126,7 +126,7 @@ abstract class BaseController extends Controller
         $this->Kumuh21Model = new \App\Models\Kumuh21Model();
         $this->Tnimd21Model = new \App\Models\Tnimd21Model();
 
-
+        $this->RkpdModel = new \App\Models\RkpdModel();
 
         $this->session = service('session');
         $this->config = config('Auth');

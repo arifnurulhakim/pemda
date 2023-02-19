@@ -13,21 +13,21 @@
                     <div class="col">
                         <label for="id_misi"><b>Misi</b></label>&nbsp;&nbsp;<span class="badge badge-light bg-gray-200" style="color: grey;"><b>Wajib</b></span></label>
                         <select class="form-control <?= $validation->hasError('id_misi') ? 'is-invalid' : ''; ?>" id="id_misi" name="id_misi" >
-    <?php foreach ($misi as $ms) : ?>
-        <?php if ($id_misi == $ms['id_misi']) : ?>
-            <option value="<?= $ms['id_misi'] ?>" selected>
-                <?= $ms['nama_misi'] ?>
-            </option>
-        <?php endif; ?>
-    <?php endforeach; ?>
-    <?php foreach ($misi as $ms) : ?>
-        <?php if ($id_misi != $ms['id_misi']) : ?>
-            <option value="<?= $ms['id_misi'] ?>">
-                <?= $ms['nama_misi'] ?>
-            </option>
-        <?php endif; ?>
-    <?php endforeach; ?>
-</select>
+                            <?php foreach ($misi as $ms) : ?>
+                                <?php if ($id_misi == $ms['id_misi']) : ?>
+                                    <option value="<?= $ms['id_misi'] ?>" selected>
+                                        <?= $ms['nama_misi'] ?>
+                                    </option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                            <?php foreach ($misi as $ms) : ?>
+                                <?php if ($id_misi != $ms['id_misi']) : ?>
+                                    <option value="<?= $ms['id_misi'] ?>">
+                                        <?= $ms['nama_misi'] ?>
+                                    </option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
 
                         <div class="invalid-feedback">
                             <?= $validation->getError('id_misi'); ?>

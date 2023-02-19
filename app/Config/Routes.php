@@ -143,6 +143,23 @@ $routes->post('/admin/rpjmd1621/edit-rpjmd1621/(:num)', 'rpjmd1621::update/$1', 
 
 $routes->get('/admin/rpjmd1621/exportExcel', 'rpjmd1621::exportExcel', ['filter' => 'role:admin']);
 
+// rkpd
+
+$routes->get('/admin/dashboard', 'Admin::dashboard', ['filter' => 'role:admin']);
+$routes->get('/admin/rkpd', 'Rkpd::index', ['filter' => 'role:admin']);
+$routes->get('/admin/rkpd/create', 'rkpd::create', ['filter' => 'role:admin']);
+$routes->get('/admin/rkpd/edit', 'rkpd::edit', ['filter' => 'role:admin']);
+$routes->delete('/admin/rkpd/(:num)', 'rkpd::delete/$1', ['filter' => 'role:admin']);
+$route['rkpd/delete/(:num)'] = 'RkpdController/delete/$1';
+$route['rkpd/edit/(:num)'] = 'RkpdController/edit/$1';
+$routes->get('/admin/rkpd/detail-rkpd/(:segment)', 'rkpd::detail/$1');
+$routes->post('/admin/rkpd/create-rkpd', 'rkpd::save', ['filter' => 'role:admin']);
+$routes->put('/admin/rkpd/update-rkpd', 'rkpd::edit', ['filter' => 'role:admin']);
+$routes->get('/admin/rkpd/edit-rkpd/(:segment)', 'rkpd::edit/$1', ['filter' => 'role:admin']);
+$routes->post('/admin/rkpd/edit-rkpd/(:num)', 'rkpd::update/$1', ['filter' => 'role:admin']);
+
+$routes->get('/admin/rkpd/exportExcel', 'rkpd::exportExcel', ['filter' => 'role:admin']);
+
 // RPJMD 2126
 $routes->get('/admin/dashboard', 'Admin::dashboard', ['filter' => 'role:admin']);
 $routes->get('/admin/rpjmd2126', 'Rpjmd2126::index', ['filter' => 'role:admin']);

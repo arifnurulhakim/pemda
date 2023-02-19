@@ -72,23 +72,11 @@
     </li>
 
     <!-- Nav Item - Data RKPD -->
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRkpd" aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-book"></i>
-        <span>RKPD</span>
-      </a>
-      <div id="collapseRkpd" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Pilih Tahun :</h6>
-          <a class="collapse-item" href="<?= base_url('admin/rkpd21'); ?>">2021</a>
-          <a class="collapse-item" href="<?= base_url('admin/rkpd22'); ?>">2022</a>
-          <a class="collapse-item" href="<?= base_url('admin/rkpd23'); ?>">2023</a>
-          <a class="collapse-item" href="<?= base_url('admin/rkpd24'); ?>">2024</a>
-          <a class="collapse-item" href="<?= base_url('admin/rkpd25'); ?>">2025</a>
-          <a class="collapse-item" href="<?= base_url('admin/rkpd26'); ?>">2026</a>
 
-        </div>
-      </div>
+    <li class="nav-item">
+      <a class="nav-link" href="<?= base_url('admin/rkpd'); ?>">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>rkpd</span></a>
     </li>
 
 
