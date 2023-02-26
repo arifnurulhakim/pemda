@@ -127,6 +127,8 @@ abstract class BaseController extends Controller
         $this->Tnimd21Model = new \App\Models\Tnimd21Model();
 
         $this->RkpdModel = new \App\Models\RkpdModel();
+        $this->KolaboratifModel = new \App\Models\KolaboratifModel();
+        $this->JenisProgramModel = new \App\Models\JenisProgramModel();
 
         $this->session = service('session');
         $this->config = config('Auth');

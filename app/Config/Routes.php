@@ -1,7 +1,6 @@
 <?php
 
 namespace Config;
-
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 
@@ -247,7 +246,7 @@ $routes->post('/admin/satuan/edit-satuan/(:num)', 'satuan::update/$1', ['filter'
 
 // Misi 1621
 $routes->get('/admin/dashboard', 'Admin::dashboard', ['filter' => 'role:admin']);
-$routes->get('/admin/misi', 'misi::index', ['filter' => 'role:admin']);
+$routes->get('/admin/misi/', 'misi::index', ['filter' => 'role:admin']);
 $routes->get('/admin/misi/create', 'misi::create', ['filter' => 'role:admin']);
 $routes->delete('/admin/misi/(:num)', 'misi::delete/$1', ['filter' => 'role:admin']);
 $routes->get('/admin/misi/detail-misi/(:segment)', 'misi::detail/$1');
@@ -290,6 +289,34 @@ $routes->post('/admin/kodeRekening/edit-kodeRekening/(:num)', 'kodeRekening::upd
 
 
 // kolaboratif
+// $routes->get('/admin/kolaboratif', 'Kolaboratif::index', ['filter' => 'role:admin']);
+// $routes->get('/admin/kolaboratif/create', 'Kolaboratif::create', ['filter' => 'role:admin']);
+// $routes->post('/admin/kolaboratif', 'Kolaboratif::store', ['filter' => 'role:admin']);
+// $routes->get('/admin/kolaboratif/edit/(:num)', 'Kolaboratif::edit/$1', ['filter' => 'role:admin']);
+// $routes->post('/admin/kolaboratif/update', 'Kolaboratif::update', ['filter' => 'role:admin']);
+// $routes->get('/admin/kolaboratif/delete/(:num)', 'Kolaboratif::delete/$1', ['filter' => 'role:admin']);
+
+
+$routes->get('/admin/dashboard', 'Admin::dashboard', ['filter' => 'role:admin']);
+$routes->get('/admin/kolaboratif', 'Kolaboratif::index', ['filter' => 'role:admin']);
+$routes->get('/admin/kolaboratif/create', 'Kolaboratif::create', ['filter' => 'role:admin']);
+$routes->post('admin/kolaboratif/store', 'Kolaboratif::store', ['filter' => 'role:admin']);
+$routes->get('/admin/kolaboratif/edit', 'Kolaboratif::edit', ['filter' => 'role:admin']);
+$routes->get('/admin/kolaboratif/update', 'Kolaboratif::edit', ['filter' => 'role:admin']);
+$routes->delete('/admin/kolaboratif/(:num)', 'Kolaboratif::delete/$1', ['filter' => 'role:admin']);
+$route['kolaboratif/delete/(:num)'] = 'KolaboratifController/delete/$1';
+$route['kolaboratif/edit/(:num)'] = 'KolaboratifController/edit/$1';
+$routes->get('/admin/kolaboratif/detail-kolaboratif/(:segment)', 'Kolaboratif::detail/$1');
+$routes->post('/admin/kolaboratif/create-kolaboratif', 'Kolaboratif::save', ['filter' => 'role:admin']);
+$routes->put('/admin/kolaboratif/update-kolaboratif', 'Kolaboratif::edit', ['filter' => 'role:admin']);
+$routes->get('/admin/kolaboratif/edit-kolaboratif/(:segment)', 'Kolaboratif::edit/$1', ['filter' => 'role:admin']);
+$routes->post('/admin/kolaboratif/edit-kolaboratif/(:num)', 'Kolaboratif::update/$1', ['filter' => 'role:admin']);
+
+$routes->get('/admin/kolaboratif/exportExcel', 'Kolaboratif::exportExcel', ['filter' => 'role:admin']);
+$routes->get('/admin/kolaboratif/filter', 'Kolaboratif::filter', ['filter' => 'role:admin']);
+// $routes->post('/admin/kolaboratif/filter', 'Kolaboratif::filter', ['filter' => 'role:admin']);
+
+
 // sanitasi21
 $routes->get('/admin/dashboard', 'Admin::dashboard', ['filter' => 'role:admin']);
 $routes->get('/admin/sanitasi21', 'sanitasi21::index', ['filter' => 'role:admin']);

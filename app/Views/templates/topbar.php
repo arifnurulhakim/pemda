@@ -25,7 +25,8 @@
         <?php if(isset($menu)) {
                 if ($menu == 'Kolaboratif') { echo 'border-bottom rounded-top bg-secondary bg-light' ;}
             }?>">
-            <a class="nav-link" href="<?= base_url('admin/sanitasi21'); ?>">Kolaboratif</a>
+            <!-- <a class="nav-link" href="<?= base_url('admin/sanitasi21'); ?>">Kolaboratif</a> -->
+            <a class="nav-link" href="<?= base_url('admin/kolaboratif'); ?>">Kolaboratif</a>
         </li>
 
         <!-- <div class="topbar-divider d-none d-sm-block"></div>

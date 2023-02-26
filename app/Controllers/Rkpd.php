@@ -245,7 +245,7 @@ public function update($id_rkpd)
 }
 public function exportExcel()
 {
-    $data = $this->getDataFromDatabase(); // Mengambil data dari database sesuai dengan kebutuhan
+  $rkpd = $this->RkpdModel->getRkpd(); // Mengambil data dari database sesuai dengan kebutuhan
 
     $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
     $sheet = $spreadsheet->getActiveSheet();
@@ -270,7 +270,7 @@ public function exportExcel()
 
     // Set data
     $row = 2;
-    foreach ($data as $item) {
+    foreach ($rkpd as $item) {
         $sheet->setCellValue('A' . $row, $item['id_rkpd']);
         $sheet->setCellValue('B' . $row, $item['id_kode_rekening']);
         $sheet->setCellValue('C' . $row, $item['id_pd']);
@@ -347,6 +347,4 @@ public function delete($id_rkpd)
     session()->setFlashdata('success', 'Data berhasil dihapus!');
     return redirect()->to('/rkpd')->withInput();
   }
-
-
 }
