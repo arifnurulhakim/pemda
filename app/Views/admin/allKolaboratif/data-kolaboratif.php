@@ -304,6 +304,7 @@
 </script>
 <script src="path/to/jquery.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
 $(document).ready(function() {
     $('#hapusModal').on('show.bs.modal', function(event) {
@@ -325,7 +326,7 @@ $(document).ready(function() {
 });
 </script>
 
-<script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js">
   $(document).ready(function() {
     // Tampilkan modal filter saat tombol "Filter" ditekan
     $("#filter-btn").click(function() {
@@ -337,6 +338,7 @@ $(document).ready(function() {
       e.preventDefault();
       var tahun_program = $("#tahun_program").val();
       var jenis_program = $("#jenis_program").val();
+ 
       $.ajax({
         url: "<?= base_url('kolaboratif/filter') ?>",
         type: "POST",
@@ -354,85 +356,32 @@ $(document).ready(function() {
       });
     });
   });
-</script>
-<!-- <script>
-  $(document).ready(function() {
-    // Ketika tombol "Filter" ditekan
-    $('#filterButton').on('click', function() {
-      // Ambil nilai tahunProgram dan jenisProgram dari form input
-      var tahun_program = $('#tahun_program').val();
-      var jenis_program = $('#jenis_program').val();
-
-      // Lakukan filter data
-      $.ajax({
-        type: "POST",
-        url: "<?= base_url('kolaboratif/index') ?>",
-        data: {
-          tahun_program: tahun_program,
-          jenis_program: jenis_program
-        },
-        success: function(data) {
-          // Isi tabel dengan data yang sudah difilter
-          $('#dataTablekolaboratif tbody').html(data);
-          // Tutup modal filter
-          $('#filterModal').modal('hide');
-        }
-      });
-    });
-  });
 </script> -->
-<!-- <script>
-$(document).ready(function() {
-    // Initialize DataTables
-    var table = $('#dataTablekolaboratif').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "ajax": {
-            "url": "<?php echo base_url('kolaboratif/filter'); ?>",
-            "type": "POST",
-            "data": function(data) {
-                data.tahun_program = $('#tahun_program').val();
-                data.jenis_program = $('#jenis_program').val();
-            }
-        },
-        "columns": [
-            {"data": "id_kolaboratif"},
-            {"data": "jenis_program"},
-            {"data": "nama_program"},
-            {"data": "indikator"},
-            {"data": "tahun_program"},
-            {"data": "nama_pd"},
-            {"data": "kode_rekening"},
-            {"data": "nama_satuan"},
-            {"data": "target"},
-            {"data": "pagu"},
-            {"data": "kecamatan"},
-            {"data": "desa"},
-            {"data": "alamat"},
-            {"data": "sumber_pendanaan"},
-            {"data": "progres"},
-            {
-                "data": null,
-                "render": function(data, type, row) {
-                    var buttons = '';
-                    <?php if (in_groups('admin')) : ?>
-                        buttons += '<a type="button" class="btn btn-warning" href="<?php echo base_url('kolaboratif/update/'); ?>' + row.id_kolaboratif + '" aria-placeholder=""><i class="fas fa-edit"></i></a>';
-                        buttons += '<a type="button" class="btn btn-danger" href="#" data-toggle="modal" data-target="#hapusModal" data-id_kolaboratif="' + row.id_kolaboratif + '"><i class="fas fa-trash-alt"></i></a>';
-                    <?php endif; ?>
-                    buttons += '<a type="button" class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(' + row.id_kolaboratif + ')" data-backdrop="static" data-keyboard="false"><i class="fas fa-chart-bar"></i></a>';
-                    return buttons;
+
+
+<!-- <script type="text/javascript">
+    $(document).ready(function() {
+        
+        // Handle filter form submit event
+        $('#filter-form').submit(function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            // Get filter form data
+            var formData = $(this).serialize();
+
+            // Send ajax request to filter data
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url('kolaboratif/filter'); ?>',
+                data: formData,
+                success: function(response) {
+                    // Render filtered data table
+                    $('#dataTablekolaboratif').html(response);
                 }
-            }
-        ]
+            });
+        });
     });
-
-    // Trigger filter on button click
-    $('#filter').on('click', function() {
-        table.ajax.reload();
-    });
-});
 </script> -->
-
 
 
 

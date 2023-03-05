@@ -556,6 +556,37 @@
         });
     });
 </script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+  $(document).ready(function() {
+    // Tampilkan modal filter saat tombol "Filter" ditekan
+    $("#filter-btn").click(function() {
+      $("#filterModal").modal("show");
+    });
+
+    // Kirim data filter ke controller saat tombol "Submit" ditekan
+    $("#filter-form").submit(function(e) {
+      e.preventDefault();
+      var tahun_program = $("#tahun_program").val();
+      var jenis_program = $("#jenis_program").val();
+ 
+      $.ajax({
+        url: "<?= base_url('kolaboratif/filter') ?>",
+        type: "POST",
+        data: {
+            tahun_program: tahun_program,
+            jenis_program: jenis_program
+        },
+        success: function(data) {
+          $("#dataTablekolaboratif tbody").html(data);
+          $("#filterModal").modal("hide");
+        },
+        error: function() {
+          alert("Terjadi kesalahan saat mengirim data filter");
+        }
+      });
+    });
+  });
+</script> -->
 <!-- <script>
 $(document).ready(function() {
   $('#id_ikudanikd1621').select2({

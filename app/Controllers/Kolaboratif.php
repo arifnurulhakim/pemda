@@ -7,31 +7,32 @@ use App\Controllers\BaseController;
 class Kolaboratif extends BaseController
 {
 
-    public function index()
-    {
-        $kolaboratif = $this->KolaboratifModel->getKolaboratifJoin();
-        $tahun_program ='';
-        $jenis_program ='';
-        if ($this->request->getMethod() == 'post') {
-            $tahun_program = $this->request->getPost('tahun_program');
-            $jenis_program = $this->request->getPost('jenis_program');
+    // public function index()
+    // {
+    //     $kolaboratif = $this->KolaboratifModel->getKolaboratifJoin();
+    //     $tahun_program ='';
+    //     $jenis_program ='';
+    //     if ($this->request->getMethod() == 'post') {
+    //         $tahun_program = $this->request->getPost('tahun_program');
+    //         $jenis_program = $this->request->getPost('jenis_program');
     
-            if (!empty($tahun_program) && !empty($jenis_program)){
-                        $kolaboratif = $this->KolaboratifModel->getKolaboratifFilter($tahun_program,$jenis_program);
-                    }
-        }
+    //         if (!empty($tahun_program) && !empty($jenis_program)){
+    //                     $kolaboratif = $this->KolaboratifModel->getKolaboratifFilter($tahun_program,$jenis_program);
+    //                 }
+    //     }
     
-        $data = [
-            'title' => 'Daftar Kolaboratif',
-            'subTitle' => 'kolaboratif',
-            'jenis_program' => $this->JenisProgramModel->findAll(),
-            'kolaboratif' => $kolaboratif,
-            'menu' => "kolaboratif",
-        ];
+    //     $data = [
+    //         'title' => 'Daftar Kolaboratif',
+    //         'subTitle' => 'kolaboratif',
+    //         'jenis_program' => $this->JenisProgramModel->findAll(),
+    //         'kolaboratif' => $kolaboratif,
+    //         'menu' => "kolaboratif",
+    //     ];
     
-        return view('/admin/allKolaboratif/data-kolaboratif', $data);
-    }
+    //     return view('/admin/allKolaboratif/data-kolaboratif', $data);
+    // }
     
+
     public function filter()
     {
         $tahun_program = $this->request->getPost('tahun_program');
@@ -51,7 +52,7 @@ class Kolaboratif extends BaseController
                 ];
             $response = [
                 'status' => true,
-                'data' => view('/admin/allKolaboratif/data-kolaboratif', ['kolaboratif' => $kolaboratif])
+                'data' => view('/admin/allKolaboratif/data-kolaboratif', $data)
             ];
         } else {
             $response = [
@@ -62,73 +63,44 @@ class Kolaboratif extends BaseController
 
         return $this->response->setJSON($response);
     }
-    
+    public function index()
+    {
 
+        // Get all kolaboratif data
+        $kolaboratif = $this->KolaboratifModel->getKolaboratifJoin();
+        $data = [
+                    'title' => 'Daftar Kolaboratif',
+                    'subTitle' => 'kolaboratif',
+                    'jenis_program' => $this->JenisProgramModel->findAll(),
+                    'kolaboratif' => $kolaboratif,
+                    'menu' => "kolaboratif",
+                ];
 
-//     public function filter()
-// {
-//     $tahun_program = $this->request->getVar('tahun_program');
-//     $jenis_program = $this->request->getVar('jenis_program');
+        return view('/admin/allKolaboratif/data-kolaboratif', $data);
+    }
 
-//     $kolaboratif = $this->KolaboratifModel->getKolaboratifFilter($tahun_program, $jenis_program);
-
-//     $data = [
-//         'title' => 'Daftar Kolaboratif',
-//         'subTitle' => 'kolaboratif',
-//         'jenis_program' => $this->JenisProgramModel->findAll(),
-//         'kolaboratif' => $kolaboratif,
-//         'menu' => "kolaboratif",
-  
-//       ];
-
-//       return view('/admin/allKolaboratif/data-kolaboratif', $data);
-// }
-// public function filter()
-// {
-//     // Ambil data dari form filter
-//     $tahun_program = $this->request->getPost('tahun_program');
-//     $jenis_program = $this->request->getPost('jenis_program');
-
-//     // Cek apakah tahun_program dan jenis_program telah diisi
-//     if (!empty($tahun_program) && !empty($jenis_program)) {
-//         // Filter data sesuai dengan tahun_program dan jenis_program
-//         $kolaboratif = $this->KolaboratifModel
-//             ->where('tahun_program', $tahun_program)
-//             ->where('jenis_program', $jenis_program)
-//             ->findAll();
-//     }
-
-//     // Kirim data kolaboratif ke view
-//     $data = [
-//         'kolaboratif' => $kolaboratif
-//     ];
-//     return view('/admin/allKolaboratif/data-kolaboratif', $data);
-// }
-
-    // public function index()
+    // public function filter()
     // {
-    //     $tahun_program = $this->request->getVar('tahun_program');
-    //     $jenis_program = $this->request->getVar('jenis_program');
-    //     $kolaboratif="";
-    //     if (!empty($tahun_program) && !empty($jenis_program)){
-    //         $kolaboratif = $this->KolaboratifModel->getKolaboratifFilter($tahun_program,$jenis_program);
-    //     }else{
-    //         $kolaboratif = $this->KolaboratifModel->getKolaboratifJoin();
-    //     }
+    //     // Get filter data from POST request
+    //     $tahun_program = $this->input->post('tahun_program');
+    //     $jenis_program = $this->input->post('jenis_program');
+    //     dd($jenis_program);
+    //     $kolaboratif = $this->$KolaboratifModel->getKolaboratifFilter($tahun_program, $jenis_program);
     //     $data = [
-    //         'title' => 'Daftar Kolaboratif',
-    //         'subTitle' => 'kolaboratif',
-    //         'jenis_program' => $this->JenisProgramModel->findAll(),
-    //         // 'event' => $event->paginate(5, 'event'),
-    //         // 'pager' => $this->eventModel->pager,
-    //         // 'currentPage' => $currentPage
-    //         'kolaboratif' => $kolaboratif,
-    //         'menu' => "kolaboratif",
-      
-    //       ];
-    //       return redirect()->to('/admin/allKolaboratif/data-kolaboratif', $data);
+    //                 'title' => 'Daftar Kolaboratif',
+    //                 'subTitle' => 'kolaboratif',
+    //                 'jenis_program' => $this->JenisProgramModel->findAll(),
+    //                 'kolaboratif' => $kolaboratif,
+    //                 'menu' => "kolaboratif",
+    //             ];
+    //     // Get filtered kolaboratif data
 
+    //     // Render filtered data view
+    //     return view('/admin/allKolaboratif/data-kolaboratif', $data);
     // }
+
+
+
     public function create()
     {
       $data =
