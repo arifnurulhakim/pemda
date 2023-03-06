@@ -20,13 +20,39 @@
         <div class="card-header py-3">
             <a class="btn btn-primary" href="<?= base_url('admin/kolaboratif/create'); ?>"><i class="fas fa-plus-circle"></i>
                 Tambah Data kolaboratif</a>
-            <a class="btn btn-success" href="<?= base_url('admin/kolaboratif/exportExcel'); ?>"><i class="fas fa-info-circle"></i>
-                Export Excel</a>
 
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterModal">
-  Filter Tabel
-</button>
-
+                <div class="form-group">
+                <select class="form-control" id="tahun_program" name="tahun_program">
+                    <option value="">-- Pilih Tahun Program --</option>
+                    <?php
+                    $tahun_program = array();
+                    foreach ($kolaboratif as $kolaboratifs) {
+                        if (!in_array($kolaboratifs['tahun_program'], $tahun_program)) {
+                            array_push($tahun_program, $kolaboratifs['tahun_program']);
+                        }
+                    }
+                    foreach ($tahun_program as $tahun) {
+                        echo "<option value='$tahun'>$tahun</option>";
+                    }
+                    ?>
+                </select>
+                </div>
+                <div class="form-group">
+                <select class="form-control" id="jenis_program" name="jenis_program">
+                    <option value="">-- Pilih Jenis Program --</option>
+                    <?php
+                    $jenis_program = array();
+                    foreach ($kolaboratif as $kolaboratifs) {
+                        if (!in_array($kolaboratifs['jenis_program'], $jenis_program)) {
+                            array_push($jenis_program, $kolaboratifs['jenis_program']);
+                        }
+                    }
+                    foreach ($jenis_program as $jenis) {
+                        echo "<option value='$jenis'>$jenis</option>";
+                    }
+                    ?>
+                </select>
+                </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTablekolaboratif" width="100%" cellspacing="0">
@@ -51,7 +77,10 @@
                                 </tr>
                             </thead>
             <tbody>
+
+
             <?php 
+            // var_dump($kolaboratif);
                  $urutan = 0;
                  foreach ($kolaboratif as $kolaboratifs): ?>
                 <tr>
@@ -359,29 +388,43 @@ $(document).ready(function() {
 </script> -->
 
 
-<!-- <script type="text/javascript">
+<script>
+  $(document).ready(function() {
+    // define filter function
+    function filterTable() {
+      var jenis_program = $('#jenis_program').val();
+      var tahun_program = $('#tahun_program').val().toString();
+      $('#dataTablekolaboratif tbody tr').each(function() {
+        var current_row = $(this);
+        var jenis_match = jenis_program === '' || current_row.find('td:eq(1)').text().indexOf(jenis_program) !== -1;
+        var tahun_match = tahun_program === '' || current_row.find('td:eq(4)').text().indexOf(tahun_program) !== -1;
+        current_row.toggle(jenis_match && tahun_match);
+      });
+    }
+
+    // filter table on change of jenis_program
+    $('#jenis_program').change(filterTable);
+
+    // filter table on change of tahun_program
+    $('#tahun_program').change(filterTable);
+  });
+</script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+
+<script>
     $(document).ready(function() {
-        
-        // Handle filter form submit event
-        $('#filter-form').submit(function(e) {
-            e.preventDefault(); // Prevent default form submission
+    $('#dataTablekolaboratif').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'csv'
+        ]
+    } );
+} );
 
-            // Get filter form data
-            var formData = $(this).serialize();
+</script>
 
-            // Send ajax request to filter data
-            $.ajax({
-                type: 'POST',
-                url: '<?php echo base_url('kolaboratif/filter'); ?>',
-                data: formData,
-                success: function(response) {
-                    // Render filtered data table
-                    $('#dataTablekolaboratif').html(response);
-                }
-            });
-        });
-    });
-</script> -->
 
 
 

@@ -35,7 +35,6 @@
                     <th>target</th>
                     <th>id_satuan</th>
                     <th>pagu</th>
-                    <th>id_kab</th>
                     <th>sumber_dana</th>
                     <th>sumber_dana</th>
                     <th>prioritas_nasional</th>
@@ -57,7 +56,6 @@
                     <td><?= $rkpds['target'] ?></td>
                     <td><?= $rkpds['id_satuan'] ?></td>
                     <td><?= $rkpds['pagu'] ?></td>
-                    <td><?= $rkpds['id_kab'] ?></td>
                     <td><?= $rkpds['sumber_dana'] ?></td>
                     <td><?= $rkpds['sumber_dana'] ?></td>
                     <td><?= $rkpds['prioritas_nasional'] ?></td>
