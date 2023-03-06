@@ -20,6 +20,8 @@
         <div class="card-header py-3">
             <a class="btn btn-primary" href="<?= base_url('admin/kolaboratif/create'); ?>"><i class="fas fa-plus-circle"></i>
                 Tambah Data kolaboratif</a>
+                <button type="button" id="export_button" class="btn btn-success btn-sm">Export</button>
+    				
 
                 <div class="form-group">
                 <select class="form-control" id="tahun_program" name="tahun_program">
@@ -413,15 +415,25 @@ $(document).ready(function() {
 <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
 
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+
 <script>
-    $(document).ready(function() {
-    $('#dataTablekolaboratif').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            'csv'
-        ]
-    } );
-} );
+function html_table_to_excel(type)
+    {
+        var data = document.getElementById('dataTablekolaboratif');
+
+        var file = XLSX.utils.table_to_book(data, {sheet: "sheet1"});
+
+        XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
+
+        XLSX.writeFile(file, 'file.' + type);
+    }
+
+    const export_button = document.getElementById('export_button');
+
+    export_button.addEventListener('click', () =>  {
+        html_table_to_excel('xlsx');
+    });
 
 </script>
 
