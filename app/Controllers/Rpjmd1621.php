@@ -12,6 +12,7 @@ use App\Controllers\BaseController;
 
 class Rpjmd1621 extends BaseController
 {
+
   // protected $wisataModel;
   // public function __construct()
   // {
@@ -36,6 +37,7 @@ class Rpjmd1621 extends BaseController
       'misi' => $misi,
       'satuan' => $satuan,
       'menu' => "RPJMD",
+      'subMenu' => "RPJMD1621",
 
     ];
     // dd($data);
@@ -53,7 +55,8 @@ class Rpjmd1621 extends BaseController
       // 'pager' => $this->eventModel->pager,
       // 'currentPage' => $currentPage
       'rpjmd1621' => $rpjmd1621,
-      'menu' => "RPJMD"
+      'menu' => "RPJMD",
+      'subMenu' => "RPJMD1621",
 
     ];
     // dd($data);
@@ -64,7 +67,7 @@ class Rpjmd1621 extends BaseController
     $data =
       [
         'title' => 'Tambah Data',
-        'wisata' => $this->wisataModel->getWisata($slug)
+        'wisata' => $this->wisataModel->getWisata($slug),
       ];
     if (empty($data['wisata'])) {
       throw new \CodeIgniter\Exceptions\PageNotFoundException('Wisata ' . $slug . ' tidak ditemukan');
@@ -81,7 +84,9 @@ class Rpjmd1621 extends BaseController
         'title' => 'rpjmd1621',
         'misi' => $this->MisiModel->orderby('nama_misi')->findAll(),
         'ikudanikd1621' => $this->Ikudanikd1621Model->orderby('nama_indikator')->findAll(),
-        'validation' => \Config\Services::validation()
+        'validation' => \Config\Services::validation(),
+        'menu' => "RPJMD",
+        'subMenu' => "RPJMD1621",
       ];
 
     // dd($data);
@@ -291,6 +296,8 @@ class Rpjmd1621 extends BaseController
         'id_rpjmd1621' => $id_rpjmd1621,
         'id_misi' => $misi,
         'id_ikudanikd1621' => $id_ikudanikd1621,
+        'menu' => "RPJMD",
+        'subMenu' => "RPJMD1621",
         't17' => $t17,
         'r17' => $r17,
         't18' => $t18,
