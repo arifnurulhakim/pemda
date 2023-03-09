@@ -20,9 +20,14 @@
         <div class="card-header py-3">
             <a class="btn btn-primary" href="<?= base_url('admin/kolaboratif/create'); ?>"><i class="fas fa-plus-circle"></i>
                 Tambah Data kolaboratif</a>
-                <button type="button" id="export_button" class="btn btn-success btn-sm">Export</button>
-    				
+                <a class="btn btn-success" type="button" id="export_button"><i class="fas fa-info-circle"></i>
+                Export Excel</a>
 
+                </div>
+                
+                <div class="card-body">
+                <div class="row mb-3">
+                <div class="col">
                 <div class="form-group">
                 <select class="form-control" id="tahun_program" name="tahun_program">
                     <option value="">-- Pilih Tahun Program --</option>
@@ -39,6 +44,8 @@
                     ?>
                 </select>
                 </div>
+                </div>
+                <div class="col">
                 <div class="form-group">
                 <select class="form-control" id="jenis_program" name="jenis_program">
                     <option value="">-- Pilih Jenis Program --</option>
@@ -55,12 +62,13 @@
                     ?>
                 </select>
                 </div>
-                <div class="card-body">
+                </div>
+               
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTablekolaboratif" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                <th>ID Kolaboratif</th>
+                                <th>no</th>
                                 <th>Jenis Program</th>
                                 <th>Nama Program</th>
                                 <th>Indikator</th>
@@ -83,10 +91,10 @@
 
             <?php 
             // var_dump($kolaboratif);
-                 $urutan = 0;
+                 $urutan = 1;
                  foreach ($kolaboratif as $kolaboratifs): ?>
                 <tr>
-                        <td><?= $kolaboratifs['id_kolaboratif'] ?></td>
+                        <td><?= $urutan ?></td>
                         <td><?= $kolaboratifs['jenis_program'] ?></td>
                         <td><?= $kolaboratifs['nama_program'] ?></td>
                         <td><?= $kolaboratifs['indikator'] ?></td>
@@ -389,10 +397,18 @@ $(document).ready(function() {
   });
 </script> -->
 
-
+<link rel="stylesheet" type="text/css" href="css/datatables.min.css">
+  <script type="text/javascript" src="js/datatables.min.js"></script>
 <script>
   $(document).ready(function() {
     // define filter function
+    $('#dataTablekolaboratif').DataTable({
+    // opsi untuk menambahkan search dan pagination
+    searching: true,
+    paging: true,
+    // opsi tambahan jika diperlukan
+    pageLength: 10, // jumlah data per halaman
+    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]] // opsi jumlah data per halaman
     function filterTable() {
       var jenis_program = $('#jenis_program').val();
       var tahun_program = $('#tahun_program').val().toString();
@@ -410,6 +426,8 @@ $(document).ready(function() {
     // filter table on change of tahun_program
     $('#tahun_program').change(filterTable);
   });
+  });
+
 </script>
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
@@ -425,8 +443,8 @@ function html_table_to_excel(type)
         var file = XLSX.utils.table_to_book(data, {sheet: "sheet1"});
 
         XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
+        XLSX.writeFile(file, 'Data-Kolaboratif-' + new Date().toISOString().slice(0, 19).replace(/:/g, '-') + '.' + type);
 
-        XLSX.writeFile(file, 'file.' + type);
     }
 
     const export_button = document.getElementById('export_button');
@@ -438,6 +456,33 @@ function html_table_to_excel(type)
 </script>
 
 
+<!-- <script>
+    $(document).ready(function () {
+  $('#dataTablekolaboratif').DataTable({
+    initComplete: function () {
+      this.api().columns([2]).every(function () {
+        var column = this;
+        var select = $('<select><option value="">Jenis Indikator</option></select>')
+          .appendTo($(column.header()).empty())
+          .on('change', function () {
+            var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+            column.search(val ? '^' + val + '$' : '', true, false).draw();
+          });
+
+        column
+          .data()
+          .unique()
+          .sort()
+          .each(function (d, j) {
+            select.append('<option value="' + d + '">' + d + '</option>');
+          });
+      });
+    },
+  });
+});
+
+    </script> -->
 
 
 

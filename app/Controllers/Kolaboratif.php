@@ -209,4 +209,12 @@ class Kolaboratif extends BaseController
     session()->setFlashdata('success', 'Data berhasil dihapus!');
     return redirect()->to('/kolaboratif')->withInput();
   }
+  public function getDesaByKecamatan()
+  {
+      $kecamatanId = $this->request->getPost('kecamatan_id');
+
+      $data = desaModel->where('id_kecamatan', $kecamatanId)->findAll();
+
+      return json_encode($data);
+  }
 }

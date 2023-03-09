@@ -315,6 +315,7 @@ $routes->post('/admin/kolaboratif/edit-kolaboratif/(:num)', 'Kolaboratif::update
 $routes->get('/admin/kolaboratif/exportExcel', 'Kolaboratif::exportExcel', ['filter' => 'role:admin']);
 $routes->get('/admin/kolaboratif/filter', 'Kolaboratif::filter', ['filter' => 'role:admin']);
 $routes->post('/admin/kolaboratif/filter', 'Kolaboratif::filter', ['filter' => 'role:admin']);
+$routes->post('/admin/kolaboratif/getDesaByKecamatan', 'Kolaboratif::getDesaByKecamatan', ['filter' => 'role:admin']);
 // $routes->post('/admin/kolaboratif/filter', 'Kolaboratif::filter', ['filter' => 'role:admin']);
 
 
