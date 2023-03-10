@@ -36,6 +36,7 @@ class Rpjmd1621 extends BaseController
       'ikudanikd1621' => $ikudanikd1621,
       'misi' => $misi,
       'satuan' => $satuan,
+      'topBar' => "Rencana Pembangunan Daerah",
       'menu' => "RPJMD",
       'subMenu' => "RPJMD1621",
 
@@ -55,6 +56,7 @@ class Rpjmd1621 extends BaseController
       // 'pager' => $this->eventModel->pager,
       // 'currentPage' => $currentPage
       'rpjmd1621' => $rpjmd1621,
+      'topBar' => "Rencana Pembangunan Daerah",
       'menu' => "RPJMD",
       'subMenu' => "RPJMD1621",
 
@@ -85,6 +87,7 @@ class Rpjmd1621 extends BaseController
         'misi' => $this->MisiModel->orderby('nama_misi')->findAll(),
         'ikudanikd1621' => $this->Ikudanikd1621Model->orderby('nama_indikator')->findAll(),
         'validation' => \Config\Services::validation(),
+        'topBar' => "Rencana Pembangunan Daerah",
         'menu' => "RPJMD",
         'subMenu' => "RPJMD1621",
       ];

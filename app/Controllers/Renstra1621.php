@@ -35,7 +35,9 @@ class Renstra1621 extends BaseController
       'ikudanikd1621' => $ikudanikd1621,
       'misi' => $misi,
       'satuan' => $satuan,
-      'menu' => "RPJMD",
+      'topBar' => "Rencana Pembangunan Daerah",
+      'menu' => "RENSTRA",
+      'subMenu' => "RENSTRA1621",
 
     ];
     // dd($data);
@@ -49,7 +51,10 @@ class Renstra1621 extends BaseController
         'title' => 'renstra1621',
         'satuan' => $this->SatuanModel->orderby('nama_satuan')->findAll(),
         'perangkatdaerah' => $this->PerangkatDaerahModel->orderby('nama_pd')->findAll(),
-        'validation' => \Config\Services::validation()
+        'validation' => \Config\Services::validation(),
+        'topBar' => "Rencana Pembangunan Daerah",
+        'menu' => "RENSTRA",
+        'subMenu' => "RENSTRA1621",
       ];
 
     // dd($data);
@@ -163,7 +168,10 @@ class Renstra1621 extends BaseController
       'subTitle' => 'Data Renstra 21',
       // 'result' => $this->wisataModel->getWisata($slug),
       // 'kategori_wisata' => $this->kategoriWisataModel->orderby('nama_kategori_wisata')->findAll(),
-      // 'validation' => \Config\Services::validation()
+      // 'validation' => \Config\Services::validation(),
+      'topBar' => "Rencana Pembangunan Daerah",
+      'menu' => "RENSTRA",
+      'subMenu' => "RENSTRA1621",
     ];
 
     return view('admin/rencanaPembangunanDaerah/renstra1621/edit-renstra1621', $data);

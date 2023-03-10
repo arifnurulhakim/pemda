@@ -56,7 +56,10 @@
     </div>
 
     <!-- Nav Item - User List -->
-    <li class="nav-item">
+    <li class="nav-item
+    <?php
+        if (!isset($subMenu)) { $subMenu = '';} //mengatasi masalah sub menu yang undefined
+        echo (($menu == 'userlist') ? 'active' : '' )?>">
       <a class="nav-link" href="<?= base_url('admin/user_list'); ?>">
         <i class="fas fa-users"></i>
         <span>User List</span></a>
@@ -97,7 +100,10 @@
 
   <?php if (in_groups('admin')) : ?>
     <!-- Nav Item - My Profile -->
-    <li class="nav-item">
+    <li class="nav-item
+    <?php
+        if (!isset($subMenu)) { $subMenu = '';} //mengatasi masalah sub menu yang undefined
+        echo (($menu == 'profile') ? 'active' : '' )?>">
       <a class="nav-link" href="<?= base_url('admin/profil'); ?>">
         <i class="fas fa-user"></i>
         <span>My Profile</span></a>
