@@ -59,12 +59,13 @@
           <a 
             class="collapse-item
             <?php //menu active RPJMD1621
-              if ($subMenu === "RPJMD1621"){ echo "active";} ?>"
+              if ($subMenu === "RPJMD1621"){ echo "bg-secondary text-light";} ?>"
               href="<?= base_url('admin/rpjmd1621'); ?>">2016-2021</a> 
           <a 
             class="collapse-item
             <?php //menu active RPJMD2126
-              if ($subMenu === "RPJMD2126"){ echo "active";} ?>" href="<?= base_url('admin/rpjmd2126'); ?>">2021-2026</a>
+              if ($subMenu === "RPJMD2126"){ echo "bg-secondary text-light";} ?>"
+              href="<?= base_url('admin/rpjmd2126'); ?>">2021-2026</a>
         </div>
       </div>
     </li>
@@ -86,11 +87,11 @@
           <h6 class="collapse-header">Pilih Tahun :</h6>
           <a class="collapse-item
           <?php //menu active RENSTRA1621
-              if ($subMenu === "RENSTRA1621"){ echo "active";} ?>" 
+              if ($subMenu === "RENSTRA1621"){ echo "bg-secondary text-light";} ?>" 
               href="<?= base_url('admin/renstra1621'); ?>">2016-2021</a>
           <a class="collapse-item
           <?php //menu active RENSTRA2126
-              if ($subMenu === "RENSTRA2126"){ echo "active";} ?>"
+              if ($subMenu === "RENSTRA2126"){ echo "bg-secondary text-light";} ?>"
               href="<?= base_url('admin/renstra2126'); ?>">2021-2026</a>
         </div>
       </div>
