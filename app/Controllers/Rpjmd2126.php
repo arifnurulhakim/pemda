@@ -19,7 +19,6 @@ class Rpjmd2126 extends BaseController
   // }
   public function index()
   {
-
     $rpjmd2126 = $this->Rpjmd2126Model->getRpjmd2126();
     $ikudanikd2126 = $this->Ikudanikd2126Model->getIkudanikd2126();
     $satuan = $this->SatuanModel->getSatuan();
@@ -34,8 +33,10 @@ class Rpjmd2126 extends BaseController
       'ikudanikd2126' => $ikudanikd2126,
       'misi2126' => $misi2126,
       'satuan' => $satuan,
+      // wajib dimasukin biar bisa active menu
+      'topBar' => "Rencana Pembangunan Daerah",
       'menu' => "RPJMD",
-
+      'subMenu' => "RPJMD2126",
     ];
     // dd($data);
     return view('admin/rencanaPembangunanDaerah/rpjmd2126/data-rpjmd2126', $data);
@@ -63,7 +64,11 @@ class Rpjmd2126 extends BaseController
         'title' => 'rpjmd2126',
         'misi2126' => $this->Misi2126Model->orderby('nama_misi2126')->findAll(),
         'ikudanikd2126' => $this->Ikudanikd2126Model->orderby('nama_indikator')->findAll(),
-        'validation' => \Config\Services::validation()
+        'validation' => \Config\Services::validation(),
+        // wajib dimasukin biar bisa active menu
+        'topBar' => "Rencana Pembangunan Daerah",
+        'menu' => "RPJMD",
+        'subMenu' => "RPJMD2126",
       ];
 
     // dd($data);
@@ -164,12 +169,17 @@ class Rpjmd2126 extends BaseController
 
   public function edit($slug)
   {
+
     $data = [
       'title' => 'Edit Data RPJMD 2022-2026',
       'subTitle' => 'Data RPJMD 2022-2026',
       // 'result' => $this->wisataModel->getWisata($slug),
       // 'kategori_wisata' => $this->kategoriWisataModel->orderby('nama_kategori_wisata')->findAll(),
-      // 'validation' => \Config\Services::validation()
+      // 'validation' => \Config\Services::validation(),
+      // wajib dimasukin biar bisa active menu
+      'topBar' => "Rencana Pembangunan Daerah",
+      'menu' => "RPJMD",
+      'subMenu' => "RPJMD2126",
     ];
 
     return view(

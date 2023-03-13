@@ -12,8 +12,8 @@
 
 
         <li class="nav-item 
-        <?php if(isset($menu)) {
-                if ($menu == 'RPJMD') { echo 'border-bottom rounded-top bg-secondary bg-light' ;}
+        <?php if(isset($topBar)) {
+                if ($topBar == 'Rencana Pembangunan Daerah') { echo 'border-bottom rounded-top bg-secondary bg-light' ;}
             }?> ">
             <a class="nav-link active" href="<?= base_url('admin/rpjmd1621'); ?>">Rencana Pembangunan Daerah</a>
         </li>

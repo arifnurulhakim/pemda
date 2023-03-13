@@ -17,7 +17,10 @@ class Admin extends BaseController
 
     public function index()
     {
-        $data['title'] = 'User List';
+        $data = [
+            'title' => 'User List',
+            'menu'  => 'userlist',
+        ];
         // $users = new \Myth\Auth\Models\UserModel();
         // $data['users'] = $users->findAll();
 
@@ -27,7 +30,6 @@ class Admin extends BaseController
         $query = $this->builder->get();
 
         $data['users'] = $query->getResult();
-        // dd($data);
         return view('admin/user_list', $data);
     }
 
@@ -41,7 +43,8 @@ class Admin extends BaseController
             // 'pager' => $this->eventModel->pager,
             // 'currentPage' => $currentPage
             'users' => $users,
-            'validation' => \Config\Services::validation()
+            'validation' => \Config\Services::validation(),
+            'menu'  => 'userlist',
         ];
         // dd($wisata);
         return view('admin/create-user', $data);
@@ -225,7 +228,10 @@ class Admin extends BaseController
 
     public function profil()
     {
-        $data['title'] = 'My Profile';
+        $data = [
+            'title' => 'My Profile',
+            'menu' => 'profile',
+        ];
         return view('admin/profile', $data);
     }
 
@@ -235,7 +241,8 @@ class Admin extends BaseController
         // dd($data_user);
         $data = [
             'title' => 'My Profile',
-            'result' => $data_user
+            'result' => $data_user,
+            'menu' => 'profile',
         ];
         return view('admin/edit-profil', $data);
     }

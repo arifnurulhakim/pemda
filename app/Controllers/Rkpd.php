@@ -22,7 +22,9 @@ class Rkpd extends BaseController
         // 'pager' => $this->eventModel->pager,
         // 'currentPage' => $currentPage
         'rkpd' => $rkpd,
+        'topBar' => "Rencana Pembangunan Daerah",
         'menu' => "RKPD",
+        'subMenu' => "RKPD",
   
       ];
       // dd($data);
@@ -36,7 +38,10 @@ class Rkpd extends BaseController
         'rekening' => $this->KodeRekeningModel->orderby('kode_rekening')->findAll(),
         'pd' => $this->PerangkatDaerahModel->orderby('nama_pd')->findAll(),
         'satuan' => $this->SatuanModel->orderby('nama_satuan')->findAll(),
-        'validation' => \Config\Services::validation()
+        'validation' => \Config\Services::validation(),
+        'topBar' => "Rencana Pembangunan Daerah",
+        'menu' => "RKPD",
+        'subMenu' => "RKPD",
       ];
 
     // dd($data);
@@ -239,6 +244,9 @@ public function update($id_rkpd)
     'prioritas_daerah' => $prioritas_daerah,
     'kelompok_sasaran' => $kelompok_sasaran,
     'tahun_rkpd' => $tahun_rkpd,
+    'topBar' => "Rencana Pembangunan Daerah",
+    'menu' => "RKPD",
+    'subMenu' => "RKPD",
   ];
 
   return view('admin/rencanaPembangunanDaerah/rkpd/edit-rkpd', $data);

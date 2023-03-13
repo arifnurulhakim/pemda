@@ -35,7 +35,9 @@ class Renstra2126 extends BaseController
       'ikudanikd2126' => $ikudanikd2126,
       'misi' => $misi,
       'satuan' => $satuan,
-      'menu' => "RPJMD",
+      'topBar' => "Rencana Pembangunan Daerah",
+      'menu' => "RENSTRA",
+      'subMenu' => "RENSTRA2126",
 
     ];
     // dd($data);
@@ -49,7 +51,10 @@ class Renstra2126 extends BaseController
         'title' => 'renstra2126',
         'satuan' => $this->SatuanModel->orderby('nama_satuan')->findAll(),
         'perangkatdaerah' => $this->PerangkatDaerahModel->orderby('nama_pd')->findAll(),
-        'validation' => \Config\Services::validation()
+        'validation' => \Config\Services::validation(),
+        'topBar' => "Rencana Pembangunan Daerah",
+        'menu' => "RENSTRA",
+        'subMenu' => "RENSTRA2126",
       ];
 
     // dd($data);

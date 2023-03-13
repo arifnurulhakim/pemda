@@ -16,7 +16,7 @@
                         <li class=""><a class="nav-link" href="/admin/dashboard">RENCANA PEMBANGUNAN</a></li>
                         <li><a class="" href="<?= base_url(); ?>/view/publikasi">PUBLIKASI</a></li>
                         <li><a class="" href="<?= base_url(); ?>/view/galeri">GALLERY</a></li>
-                        <li><a class="" href="<?= base_url(); ?>">LOGIN</a></li>
+                        <li><a class="" href="<?= base_url(); ?>login">LOGIN</a></li>
                     </ul>
 
                     <!-- ################################################################################################ -->

@@ -45,7 +45,7 @@
     <li class="nav-item
       <?php
         if (!isset($subMenu)) { $subMenu = '';} //mengatasi masalah sub menu yang undefined
-        echo (($subMenu == 'RPJMD1621') ? 'active' : '' )?>">
+        echo (($menu == 'RPJMD') ? 'active' : '' )?>">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
         <i class="fas fa-fw fa-newspaper"></i>
         <span>RPJMD</span>
@@ -53,7 +53,7 @@
       <div id="collapseTwo" aria-labelledby="headingTwo" data-parent="#accordionSidebar"
            class="collapse 
             <?php
-              if ($subMenu === "RPJMD1621"){ echo "show";} ?>">
+              if (($subMenu === "RPJMD1621") or ($subMenu === "RPJMD2126")){ echo "show";} ?>">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Pilih Tahun :</h6>
           <a 
@@ -61,32 +61,50 @@
             <?php //menu active RPJMD1621
               if ($subMenu === "RPJMD1621"){ echo "active";} ?>"
               href="<?= base_url('admin/rpjmd1621'); ?>">2016-2021</a> 
-          <a class="collapse-item" href="<?= base_url('admin/rpjmd2126'); ?>">2021-2026</a>
+          <a 
+            class="collapse-item
+            <?php //menu active RPJMD2126
+              if ($subMenu === "RPJMD2126"){ echo "active";} ?>" href="<?= base_url('admin/rpjmd2126'); ?>">2021-2026</a>
         </div>
       </div>
     </li>
 
     <!-- Nav Item - Rencana Strategis Perangkat Daerah -->
-    <li class="nav-item">
+    <li class="nav-item
+    <?php
+        if (!isset($subMenu)) { $subMenu = '';} //mengatasi masalah sub menu yang undefined
+        echo (($menu == 'RENSTRA') ? 'active' : '' )?>">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRenstra" aria-expanded="true" aria-controls="collapseTwo">
         <i class="fas fa-fw fa-map"></i>
         <span>RENSTRA-PD</span>
       </a>
-      <div id="collapseRenstra" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div id="collapseRenstra" class="collapse
+      <?php
+          if (($subMenu === "RENSTRA1621") or ($subMenu === "RENSTRA2126")){ echo "show";} ?>" 
+          aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Pilih Tahun :</h6>
-          <a class="collapse-item" href="<?= base_url('admin/renstra1621'); ?>">2016-2021</a>
-          <a class="collapse-item" href="<?= base_url('admin/renstra2126'); ?>">2021-2026</a>
+          <a class="collapse-item
+          <?php //menu active RENSTRA1621
+              if ($subMenu === "RENSTRA1621"){ echo "active";} ?>" 
+              href="<?= base_url('admin/renstra1621'); ?>">2016-2021</a>
+          <a class="collapse-item
+          <?php //menu active RENSTRA2126
+              if ($subMenu === "RENSTRA2126"){ echo "active";} ?>"
+              href="<?= base_url('admin/renstra2126'); ?>">2021-2026</a>
         </div>
       </div>
     </li>
 
     <!-- Nav Item - Data RKPD -->
 
-    <li class="nav-item">
+    <li class="nav-item
+    <?php
+        if (!isset($subMenu)) { $subMenu = '';} //mengatasi masalah sub menu yang undefined
+        echo (($menu == 'RKPD') ? 'active' : '' )?>">
       <a class="nav-link" href="<?= base_url('admin/rkpd'); ?>">
         <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>rkpd</span></a>
+        <span>RKPD</span></a>
     </li>
 
 

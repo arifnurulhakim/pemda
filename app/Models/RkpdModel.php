@@ -16,7 +16,6 @@ class RkpdModel extends Model
         'target',
         'id_satuan',
         'pagu',
-        'id_kab',
         'sumber_dana',
         'prioritas_nasional',
         'prioritas_daerah',
