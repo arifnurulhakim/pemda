@@ -180,14 +180,6 @@ class Misi extends BaseController
   }
   public function delete($id_misi)
   {
-    // cari gambar berdasarkan id
-    // $kategoriWisata = $this->kategoriWisataModel->find($id_misi);
-
-    // // cek jika file gambarnya default.jpg
-    // if($kategoriWisata['gambar_wisata'] != 'default.jpg'){
-    // //hapus gambar
-    // unlink('img/kategori-wisata/' . $kategoriWisata['gambar_wisata']);
-    // }
 
     $this->MisiModel->delete($id_misi);
     session()->setFlashdata('success', 'Data berhasil dihapus!');
