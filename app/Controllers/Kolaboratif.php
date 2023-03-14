@@ -135,7 +135,7 @@ class Kolaboratif extends BaseController
   {
       $kecamatanId = $this->request->getPost('kecamatan_id');
 
-      $data = desaModel->where('id_kecamatan', $kecamatanId)->findAll();
+      $data = $this->desaModel->where('id_kecamatan', $kecamatanId)->findAll();
 
       return json_encode($data);
   }

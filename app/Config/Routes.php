@@ -237,7 +237,8 @@ $routes->post('/admin/rkpd21/edit-rkpd21/(:num)', 'rkpd21::update/$1', ['filter'
 $routes->get('/admin/dashboard', 'Admin::dashboard', ['filter' => 'role:admin']);
 $routes->get('/admin/satuan', 'satuan::index', ['filter' => 'role:admin']);
 $routes->get('/admin/satuan/create', 'satuan::create', ['filter' => 'role:admin']);
-$routes->delete('/admin/satuan/(:num)', 'satuan::delete/$1', ['filter' => 'role:admin']);
+$routes->delete('/admin/satuan/delete/(:num)', 'satuan::delete/$1', ['filter' => 'role:admin']);
+$route['satuan/delete/(:num)'] = 'KolaboratifController/delete/$1';
 $routes->get('/admin/satuan/detail-satuan/(:segment)', 'satuan::detail/$1');
 $routes->post('/admin/satuan/create-satuan', 'satuan::save', ['filter' => 'role:admin']);
 $routes->get('/admin/satuan/edit-satuan/(:segment)', 'satuan::edit/$1', ['filter' => 'role:admin']);

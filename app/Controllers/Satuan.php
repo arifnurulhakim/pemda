@@ -115,13 +115,16 @@ class Satuan extends BaseController
     return redirect()->to('/satuan');
   }
 
-  public function edit($slug)
+  public function edit($id_satuan)
   {
+    $allData = $this->SatuanModel->find($id_satuan);
+
     $data = [
       'title' => 'Edit Data satuan',
       'subTitle' => 'satuan',
-      'result' => $this->SatuanModel->getSatuan($slug),
-      'satuan' => $this->SatuanModel->orderby('nama_satuan')->findAll(),
+      'id_satuan' => $id_satuan,
+      'nama_satuan' => $allData['nama_satuan'],
+      'deskripsi_satuan' => $allData['deskripsi_satuan'],
       'validation' => \Config\Services::validation()
     ];
 
@@ -130,54 +133,15 @@ class Satuan extends BaseController
 
   public function update($id_satuan)
   {
-
-    // Cek Nama Wisata yang lama
-    $dataSatuanLama = $this->SatuanModel->getSatuan($this->request->getVar('slug_satuan'));
-    if ($dataSatuanLama['nama_satuan'] == $this->request->getVar('nama_satuan')) {
-      $rule_title = 'required';
-    } else {
-      $rule_title = 'required|is_unique[satuan.nama_satuan]';
-    }
-    // Validasi Data
-    if (!$this->validate([
-      'nama_satuan' => [
-        'rules' => $rule_title,
-        'label' => 'Nama satuan',
-        'errors' => [
-          'required' => '{field} harus diisi',
-          'is_unique' => '{field} sudah digunakan'
-        ]
-      ],
-      'deskripsi_satuan' => [
-        'rules' => $rule_title,
-        'label' => 'Deskripsi ',
-        'errors' => [
-          'required' => '{field} harus diisi',
-          'is_unique' => '{field} sudah digunakan'
-        ]
-      ]
-    ])) {
-      //Berisi fungsi redirect jika validasi tidak memenuhi
-      // dd(\Config\Services::validation()->getErrors());
-      return redirect()->to('/admin/masterData/satuan/edit-satuan/' . $this->request->getVar('slug_satuan'))->withInput();
-    }
-
-    $slug = url_title($this->request->getVar('nama_satuan'), '-', true);
-    if ($this->SatuanModel->save([
-      'id_satuan' => $id_satuan,
-      // 'id_user'     => $this->request->$user_id,
-      // 'id_user'     => $this->request->user_id,
+    if ($this->SatuanModel->update( $id_satuan,[
       'nama_satuan' => $this->request->getVar('nama_satuan'),
-      'slug_satuan' => $slug,
       'deskripsi_satuan' => $this->request->getVar('deskripsi_satuan'),
-      // 'id_satuan' => $this->request->getVar('id_satuan'),
-    ])) {
-      // dd($_SESSION);
-      session()->setFlashdata('success', 'Data berhasil diperbarui!');
-    } else {
-      session()->setFlashdata('error', 'Data gagal diperbarui!');
-    }
-    return redirect()->to('/satuan')->withInput();
+  ])) {
+      session()->setFlashdata('success', 'Data berhasil di update!');
+  } else {
+      session()->setFlashdata('error', 'Data gagal di update!');
+  }
+  return redirect()->to('admin/satuan/');
   }
   public function delete($id_satuan)
   {
@@ -194,4 +158,6 @@ class Satuan extends BaseController
     session()->setFlashdata('success', 'Data berhasil dihapus!');
     return redirect()->to('/satuan')->withInput();
   }
+
+  
 }
