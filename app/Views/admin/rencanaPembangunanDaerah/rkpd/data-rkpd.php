@@ -42,6 +42,7 @@
                 </select>
                 </div>
                 </div>
+                </div>
                
     <div class="table-responsive">
         <table class="table table-bordered" id="dataTableRkpd" width="100%" cellspacing="0">
@@ -61,6 +62,8 @@
                     <th>prioritas_daerah</th>
                     <th>kelompok_sasaran</th>
                     <th>tahun_rkpd</th>
+                    <th>aksi</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -358,32 +361,54 @@ $(document).ready(function() {
     $('#tahun_rkpd').change(filterTable);
   });
 </script>
-<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
-
 <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 
 <script>
 function html_table_to_excel(type)
-    {
-        var data = document.getElementById('dataTableRkpd');
+{
+    var data = document.getElementById('dataTableRkpd');
+    var headers = [];
+    var rows = [];
 
-        var file = XLSX.utils.table_to_book(data, {sheet: "sheet1"});
-
-        XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
-
-        XLSX.writeFile(file, 'Data-RKPD-' + new Date().toISOString().slice(0, 19).replace(/:/g, '-') + '.' + type);
-
-        
+    // Extract headers
+    for (var i = 0; i < data.rows[0].cells.length; i++) {
+        if (i < data.rows[0].cells.length - 1) {
+            headers[i] = data.rows[0].cells[i].innerText.toLowerCase().replace(/ /gi, '_');
+        }
     }
 
-    const export_button = document.getElementById('export_button');
+    // Extract data rows
+    for (var i = 1; i < data.rows.length; i++) {
+        var tableRow = data.rows[i];
+        var rowData = {};
 
-    export_button.addEventListener('click', () =>  {
-        html_table_to_excel('xlsx');
-    });
+        for (var j = 0; j < tableRow.cells.length; j++) {
+            if (j < tableRow.cells.length - 1) {
+                rowData[headers[j]] = tableRow.cells[j].innerText;
+            }
+        }
+
+        rows.push(rowData);
+    }
+
+    // Create workbook and worksheet
+    var wb = XLSX.utils.book_new();
+    var ws = XLSX.utils.json_to_sheet(rows);
+
+    // Add worksheet to workbook
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    // Write to file and download
+    XLSX.writeFile(wb, 'Data-RKPD-' + new Date().toISOString().slice(0, 19).replace(/:/g, '-') + '.' + type);
+}
+
+const export_button = document.getElementById('export_button');
+
+export_button.addEventListener('click', () =>  {
+    html_table_to_excel('xlsx');
+});
 
 </script>
+
 
 <?= $this->endSection(); ?>

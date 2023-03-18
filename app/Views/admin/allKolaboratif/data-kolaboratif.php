@@ -63,7 +63,7 @@
                 </select>
                 </div>
                 </div>
-               
+             
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTablekolaboratif" width="100%" cellspacing="0">
                             <thead>
@@ -83,7 +83,7 @@
                                 <th>Alamat</th>
                                 <th>Sumber Pendanaan</th>
                                 <th>Progres</th>
-                                
+                                <th>aksi</th>
                                 </tr>
                             </thead>
             <tbody>
@@ -139,109 +139,11 @@
             </div>
         </div>
     </div>
-            </div>
-            </div>
-    <!-- Grafik Modal -->
-    <div class="modal fade" id="grafikModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tampilan Grafik</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <div class="row">
-                        <!-- <div class="col-md-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3>Multiple Line Series</h3>
-                                </div>
-                                <div id="chart2" class="panel-body">
-                                </div>
-                            </div>
-                        </div> -->
-                        <div class="col">
-                            <?php
-                            // print_r($kolaboratifs);
-                            // foreach ($kolaboratif as $key => $value) {
-                            // $kolaboratif[]=$value['t17'];
-                            // $trg[]=$value['t18'];
-                            // $trg[]=$value['t19'];
-                            // $trg[]=$value['t20'];
-                            // $trg[]=$value['t21'];
-                            //    $trg[]= $value['t17'];
-                            //    $trg[]= $value['t18'];
-                            //    $trg[]= $value['t19'];
-                            //    $trg[]= $value['t20'];
-                            //    $trg[]= $value['t21'];
-                            // }
-                            // echo json_encode($trg);
-                            ?>
-                            <!-- Area Chart -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 id='titleIndikator' class="m-0 font-weight-bold text-primary">Area Chart</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <form action="" method="post">
-                        <?= csrf_field(); ?>
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button class="btn btn-warning" type="button" data-dismiss="modal" onclick="destroyChart()">Tutup</button>
-                        <input type="hidden" name="_method" value="DELETE">
-
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-   <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="filterModalLabel">Filter Tabel Kolaboratif</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="filter-form">
-        <div class="form-group">
-    <label for="tahun_program">Tahun Program</label>
-    <input type="text" class="form-control" id="tahun_program" name="tahun_program" placeholder="Tahun (yyyy)" maxlength="4" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
-</div>
-
-<div class="form-group">
-  <label for="jenis_program">Jenis Program</label>
-  <select class="form-control" id="jenis_program" name="jenis_program">
-    <option value="">-- Pilih Jenis Program --</option>
-    <option value="rumah">Rumah</option>
-    <option value="sanisasi">Sanitasi</option>
-    <option value="tni">TNI</option>
-  </select>
-</div>
-          <button type="submit" class="btn btn-primary" id="filter-btn">Filter</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+           
+        
 
 
-
+   
     <!-- Hapus Modal-->
     <div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -365,50 +267,13 @@ $(document).ready(function() {
 });
 </script>
 
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js">
-  $(document).ready(function() {
-    // Tampilkan modal filter saat tombol "Filter" ditekan
-    $("#filter-btn").click(function() {
-      $("#filterModal").modal("show");
-    });
-
-    // Kirim data filter ke controller saat tombol "Submit" ditekan
-    $("#filter-form").submit(function(e) {
-      e.preventDefault();
-      var tahun_program = $("#tahun_program").val();
-      var jenis_program = $("#jenis_program").val();
- 
-      $.ajax({
-        url: "<?= base_url('kolaboratif/filter') ?>",
-        type: "POST",
-        data: {
-            tahun_program: tahun_program,
-            jenis_program: jenis_program
-        },
-        success: function(data) {
-          $("#dataTablekolaboratif tbody").html(data);
-          $("#filterModal").modal("hide");
-        },
-        error: function() {
-          alert("Terjadi kesalahan saat mengirim data filter");
-        }
-      });
-    });
-  });
-</script> -->
 
 <link rel="stylesheet" type="text/css" href="css/datatables.min.css">
   <script type="text/javascript" src="js/datatables.min.js"></script>
 <script>
   $(document).ready(function() {
     // define filter function
-    $('#dataTablekolaboratif').DataTable({
-    // opsi untuk menambahkan search dan pagination
-    searching: true,
-    paging: true,
-    // opsi tambahan jika diperlukan
-    pageLength: 10, // jumlah data per halaman
-    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]] // opsi jumlah data per halaman
+    
     function filterTable() {
       var jenis_program = $('#jenis_program').val();
       var tahun_program = $('#tahun_program').val().toString();
@@ -426,63 +291,57 @@ $(document).ready(function() {
     // filter table on change of tahun_program
     $('#tahun_program').change(filterTable);
   });
-  });
-
-</script>
-<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
-
-<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+  </script>
 
 <script>
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+
 function html_table_to_excel(type)
-    {
-        var data = document.getElementById('dataTablekolaboratif');
+{
+    var data = document.getElementById('dataTablekolaboratif');
+    var headers = [];
+    var rows = [];
 
-        var file = XLSX.utils.table_to_book(data, {sheet: "sheet1"});
-
-        XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
-        XLSX.writeFile(file, 'Data-Kolaboratif-' + new Date().toISOString().slice(0, 19).replace(/:/g, '-') + '.' + type);
-
+    // Extract headers
+    for (var i = 0; i < data.rows[0].cells.length; i++) {
+        if (i < data.rows[0].cells.length - 1) {
+            headers[i] = data.rows[0].cells[i].innerText.toLowerCase().replace(/ /gi, '_');
+        }
     }
 
-    const export_button = document.getElementById('export_button');
+    // Extract data rows
+    for (var i = 1; i < data.rows.length; i++) {
+        var tableRow = data.rows[i];
+        var rowData = {};
 
-    export_button.addEventListener('click', () =>  {
-        html_table_to_excel('xlsx');
-    });
+        for (var j = 0; j < tableRow.cells.length; j++) {
+            if (j < tableRow.cells.length - 1) {
+                rowData[headers[j]] = tableRow.cells[j].innerText;
+            }
+        }
+
+        rows.push(rowData);
+    }
+
+    // Create workbook and worksheet
+    var wb = XLSX.utils.book_new();
+    var ws = XLSX.utils.json_to_sheet(rows);
+
+    // Add worksheet to workbook
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    // Write to file and download
+    XLSX.writeFile(wb, 'Data-Kolaboratif-' + new Date().toISOString().slice(0, 19).replace(/:/g, '-') + '.' + type);
+}
+
+const export_button = document.getElementById('export_button');
+
+export_button.addEventListener('click', () =>  {
+    html_table_to_excel('xlsx');
+});
 
 </script>
 
-
-<!-- <script>
-    $(document).ready(function () {
-  $('#dataTablekolaboratif').DataTable({
-    initComplete: function () {
-      this.api().columns([2]).every(function () {
-        var column = this;
-        var select = $('<select><option value="">Jenis Indikator</option></select>')
-          .appendTo($(column.header()).empty())
-          .on('change', function () {
-            var val = $.fn.dataTable.util.escapeRegex($(this).val());
-
-            column.search(val ? '^' + val + '$' : '', true, false).draw();
-          });
-
-        column
-          .data()
-          .unique()
-          .sort()
-          .each(function (d, j) {
-            select.append('<option value="' + d + '">' + d + '</option>');
-          });
-      });
-    },
-  });
-});
-
-    </script> -->
 
 
 
