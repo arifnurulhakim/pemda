@@ -26,20 +26,19 @@ class Rpjmd1621Model extends Model
     return $this->db->table('rpjmd1621')->countAll();
   }
 
-  public function getRpjmd1621($slug = false)
+  public function getRpjmd1621()
   {
-    if ($slug === false) {
-      // $this->where(['slug' => $slug])->first();
-      $this->join('misi', 'rpjmd1621.id_misi = misi.id_misi');
-      $this->join('ikudanikd1621', 'rpjmd1621.id_ikudanikd1621 = ikudanikd1621.id_ikudanikd1621');
-      $this->join('satuan', 'ikudanikd1621.id_satuan = satuan.id_satuan');
-      // $this->join('users', 'users.id = wisata.id_user');
-      // $this->where('id_user', $slug);
-      // $this->or_where('slug_produk', $slug);
-      return $this->orderby('created_at')->findAll();
-    }
-    return $this->where(['slug' => $slug])->first();
+      $query = $this->db->table('rpjmd1621')
+                        ->select('*')
+                        ->join('misi', 'rpjmd1621.id_misi = misi.id_misi')
+                        ->join('ikudanikd1621', 'rpjmd1621.id_ikudanikd1621 = ikudanikd1621.id_ikudanikd1621')
+                        ->join('satuan', 'ikudanikd1621.id_satuan = satuan.id_satuan')
+                        ->get();
+    
+      return $query->getResultArray();
   }
+  
+  
 
   function get_cari_wisata($cari)
   {

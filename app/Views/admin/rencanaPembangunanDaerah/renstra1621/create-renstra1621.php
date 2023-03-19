@@ -14,26 +14,39 @@
 
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="id_pd"><b>Perangkat Daerah</b></label>&nbsp;&nbsp;<span class="badge badge-light bg-gray-200" style="color: grey;"><b>Wajib</b></span>
-                        <input type="text" style="width: 100%; background: #ffff;" name="nama_pd" id="nama_pd" onclick="myFunction()" class="form-control " placeholder="-Pilih Perangkat Daerah-" readonly style="width:200px" />
-                        <input type="hidden" name="id_pd" id="id_pd" class="form-control <?= $validation->hasError('id_pd') ? 'is-invalid' : ''; ?>" />
-                        <div id="myDropdownPD" class="dropdown-content" style="height: 200px; width: 300px; overflow-y: scroll;">
-                            <input type="text" placeholder="Search.." id="myInputPD" onkeyup="filterFunction()">
-                            <a id="PD" onclick="empty()">-Pilih Perangkat Daerah-</a>
-                            <!-- ni untuk selectnya, boleh disesuaikan dengan kaurang punya, saya disini pakai mysqli_fetch_array dan kau rang beda, jadi sesuaikan aja -->
-                            <?php foreach ($perangkatdaerah as $pd) : ?>
-                                <a onclick="autofill_choose('<?= $pd['id_pd']; ?>','<?= $pd['nama_pd']; ?>')">
-                                    <?= $pd['nama_pd']; ?>
-                                </a>
+                    
+                        <label for="id_pd"><b>Perangkat Daerah</b></label>&nbsp;&nbsp;<span class="badge badge-light bg-gray-200" style="color: grey;"><b>Wajib</b></span></label>
+                            <!-- tambahkan input teks untuk pencarian -->
 
-                            <?php endforeach; ?>
-                        </div>
+                            <!-- tambahkan daftar item -->
+                            <div class="row">
+                            <div class="col-md-6">
+                                    <input type="text" class="form-control" id="search-box" placeholder="Cari indikator...">
+                                </div>
+                                <div class="col-md-6">
+                                <select class="form-control <?= $validation->hasError('id_pd') ? 'is-invalid' : ''; ?>" id="id_pd" name="id_pd">
+                                    <?php foreach ($perangkatdaerah as $perangkatdaerah_1) : ?>
+                                        
+                                        <option value="<?= $perangkatdaerah_1['id_pd'] ?>" selected>
+                                            <?= $perangkatdaerah_1['nama_pd'] ?>
+                                        </option>
+                                       
+                                    <?php endforeach; ?>
+                                    <?php foreach ($perangkatdaerah as $perangkatdaerah_1) : ?>
+                                        <option value="<?= $perangkatdaerah_1['id_pd'] ?>">
+                                            <?= $perangkatdaerah_1['nama_pd']  ?>
+                                        </option>
+                                         <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                </div>
+
                         <div class="invalid-feedback">
                             <?= $validation->getError('id_pd'); ?>
                         </div>
                     </div>
                 </div>
-                <div class="row mb-3">
+ <div class="row mb-3">
                     <div class="col">
                         <label for="nama_indikator"><b>Indikator Renstra</b></label>&nbsp;&nbsp;<span class="badge badge-light bg-gray-200" style="color: grey;"><b>Wajib</b></span><input id="nama_indikator" name="nama_indikator" for="nama_indikator" class="form-control <?= $validation->hasError('nama_indikator') ? 'is-invalid' : ''; ?>" type="text" placeholder="" value="<?= old('nama_indikator'); ?>">
                         <div class="invalid-feedback">
@@ -44,20 +57,33 @@
 
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="id_satuan"><b>Satuan</b></label>&nbsp;&nbsp;<span class="badge badge-light bg-gray-200" style="color: grey;"><b>Wajib</b></span>
-                        <input type="text" style="width: 100%; background: #ffff;" name="nama_satuan" id="nama_satuan" onclick="myFunction_st()" class="form-control " placeholder="-Pilih Satuan-" readonly style="width:200px" />
-                        <input type="hidden" name="id_satuan" id="id_satuan" class="form-control <?= $validation->hasError('id_satuan') ? 'is-invalid' : ''; ?>" />
-                        <div id="myDropdown" class="dropdown-content" style="height: 200px; width: 300px; overflow-y: scroll;">
-                            <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction_st()">
-                            <a onclick="empty_st()">-Pilih Satuan-</a>
-                            <!-- ni untuk selectnya, boleh disesuaikan dengan kaurang punya, saya disini pakai mysqli_fetch_array dan kau rang beda, jadi sesuaikan aja -->
-                            <?php foreach ($satuan as $st) : ?>
-                                <a onclick="autofill_choose_st('<?= $st['id_satuan']; ?>','<?= $st['nama_satuan']; ?>')">
-                                    <?= $st['nama_satuan']; ?>
-                                </a>
+                    
+                        <label for="id_satuan"><b>Satuan</b></label>&nbsp;&nbsp;<span class="badge badge-light bg-gray-200" style="color: grey;"><b>Wajib</b></span></label>
+                            <!-- tambahkan input teks untuk pencarian -->
 
-                            <?php endforeach; ?>
-                        </div>
+                            <!-- tambahkan daftar item -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="search-box" placeholder="Cari indikator...">
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control <?= $validation->hasError('id_satuan') ? 'is-invalid' : ''; ?>" id="id_satuan" name="id_satuan">
+                                    <?php foreach ($satuan as $satuan_1) : ?>
+                                        
+                                        <option value="<?= $satuan_1['id_satuan'] ?>" selected>
+                                            <?= $satuan_1['nama_satuan'] ?>
+                                        </option>
+                                       
+                                    <?php endforeach; ?>
+                                    <?php foreach ($satuan as $satuan_1) : ?>
+                                        <option value="<?= $satuan_1['id_satuan'] ?>">
+                                            <?= $satuan_1['nama_satuan']  ?>
+                                        </option>
+                                         <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                </div>
+
                         <div class="invalid-feedback">
                             <?= $validation->getError('id_satuan'); ?>
                         </div>

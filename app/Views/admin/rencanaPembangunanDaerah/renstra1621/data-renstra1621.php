@@ -19,7 +19,7 @@
         <div class="card-header py-3">
             <a class="btn btn-primary" href="<?= base_url('admin/renstra1621/create'); ?>"><i class="fas fa-plus-circle"></i>
                 Tambah Data Renstra-PD</a>
-            <a class="btn btn-success" href=""><i class="fas fa-info-circle"></i>
+                <a class="btn btn-success" href="<?= base_url('admin/renstra1621/exportExcel'); ?>"><i class="fas fa-info-circle"></i>
                 Export Excel</a>
 
 
@@ -62,7 +62,10 @@
                         </thead>
 
                         <tbody>
-                            <?php foreach ($renstra1621 as $renstra1621_1) : ?>
+
+                            <?php 
+                             $urutan = 1;
+                             foreach ($renstra1621 as $renstra1621_1) : ?>
                                 <tr>
 
 
@@ -124,25 +127,32 @@
                                             echo 'style="background-color: tomato; color:white;"';
                                         }
                                         ?>> <?= $renstra1621_1['r21'] ?></td>
-                                    <?php if (in_groups('admin')) : ?>
+                                 
                                         <td>
-                                            <a href="/renstra1621/edit/<?= $renstra1621_1['slug']; ?>">Edit</a> |
-                                            <!-- <a href="/renstra1621/delete/<?= $renstra1621_1['id_renstra1621']; ?>">Hapus</a> -->
-                                            <a type='button' class="btn btn-danger" href="#" data-toggle="modal" data-target="#hapusModal">
-                                                Hapus
+                                        <?php if (in_groups('admin')) : ?>
+                                            <a type='button' class="btn btn-warning" href="/renstra1621/update/<?=$renstra1621_1['id_renstra1621']; ?>" aria-placeholder="">
+                                                <i class="fas fa-edit"></i>
                                             </a>
-                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal">
-                                                Grafik
+                                            <!-- <a href="/renstra1621/delete/<?= $renstra1621_1['id_renstra1621']; ?>">Hapus</a> -->
+                                            <a type='button' class="btn btn-danger" href="#" data-toggle="modal" data-target="#hapusModal" data-id_renstra1621="<?= $renstra1621_1['id_renstra1621']; ?>">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $urutan;?>)" data-backdrop="static" data-keyboard="false">
+                                                <i class="fas fa-chart-bar"></i>
                                             </a>
                                         <?php else : ?>
-                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal">
-                                                Grafik
+                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $urutan;?>)" data-backdrop="static" data-keyboard="false">
+                                                <i class="fas fa-chart-bar"></i>
                                             </a>
-                                        </td>
-                                    <?php endif; ?>
+                                        <?php endif; ?>
+                                    </td>
+                                    
 
                                 </tr>
-                            <?php endforeach; ?>
+                                
+                            <?php 
+                             $urutan++;
+                        endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -221,10 +231,6 @@
     <!-- !Grafik Modal -->
 
     <!-- Hapus Modal-->
-
-    <?= csrf_field(); ?>
-
-
     <div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -238,13 +244,11 @@
                     kembali.</div>
 
                 <div class="modal-footer">
-                    <form action="/renstra1621/delete/<?= $renstra1621_1['id_renstra1621']; ?>" method="post">
-                        <?= csrf_field(); ?>
-                        <input type="hidden" name="_method" value="DELETE">
+                
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-danger" href="">Hapus</button>
-                    </form>
+                        
+                        <a type="submit" class="btn btn-danger del-button" href="">Hapus</a>
+
                 </div>
             </div>
         </div>
@@ -292,5 +296,28 @@
             }
         }
     });
+</script>
+
+<script src="path/to/jquery.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#hapusModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)
+        var id_renstra1621 = button.data('id_renstra1621')
+        var modal = $(this)
+        modal.find('.del-button').attr('href', '/renstra1621/delete/' + id_renstra1621)
+    })
+})
+</script>
+<script>
+    $.ajax({
+    type: "POST",
+    url: "<?= base_url('renstra1621/getDataUpdate') ?>",
+    data: {id_renstra1621: "<?= $renstra1621_1['id_renstra1621'] ?>"},
+    success: function (response) {
+        // action to be performed on success
+    }
+});
 </script>
 <?= $this->endSection(); ?>

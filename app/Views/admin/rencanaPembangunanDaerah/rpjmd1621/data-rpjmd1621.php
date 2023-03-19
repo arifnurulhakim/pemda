@@ -61,7 +61,7 @@
 
                         <tbody>
                             <?php 
-                            $urutan = 0;
+                            $urutan = 1;
                             foreach ($rpjmd1621 as $rpjmd1621_1) : ?>
                                 <tr>
 
@@ -366,6 +366,7 @@
 </script>
 <script src="path/to/jquery.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
 $(document).ready(function() {
     $('#hapusModal').on('show.bs.modal', function(event) {
@@ -376,6 +377,7 @@ $(document).ready(function() {
     })
 })
 </script>
+
 <script>
     $.ajax({
     type: "POST",
@@ -386,4 +388,5 @@ $(document).ready(function() {
     }
 });
 </script>
+
 <?= $this->endSection(); ?>
