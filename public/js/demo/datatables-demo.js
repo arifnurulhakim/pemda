@@ -102,6 +102,16 @@ $(document).ready(function () {
     },
   });
 });
+$(document).ready(function () {
+  $('#dataTablekolaboratif').DataTable({
+   
+  });
+});
+$(document).ready(function () {
+  $('#dataTableRkpd').DataTable({
+   
+  });
+});
 
 
 // table  iku dan ikd 1621

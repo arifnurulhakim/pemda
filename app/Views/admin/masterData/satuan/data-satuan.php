@@ -35,11 +35,13 @@
                                 <td> <?= $st['deskripsi_satuan'] ?></td>
                                 <td>
 
-                                    <a type="button" class="btn btn-info" href="<?= base_url('admin/satuan/edit-satuan/' . $st['slug_satuan']); ?>">
-                                        <i class="fas fa-info-circle"></i> Edit</a>
-                                    <a type='button' class="btn btn-danger" href="#" data-toggle="modal" data-target="#hapusModal">
-                                        Hapus
-                                    </a>
+
+                                        <a type='button' class="btn btn-warning" href="/satuan/edit/<?=$st['id_satuan']; ?>" aria-placeholder="">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                                        <a type='button' class="btn btn-danger" href="#" data-toggle="modal" data-target="#hapusModal" data-id_satuan="<?= $st['id_satuan']; ?>">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
 
                                 </td>
                             </tr>
@@ -51,7 +53,6 @@
 
 
     </div>
-
     <div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -65,18 +66,42 @@
                     kembali.</div>
 
                 <div class="modal-footer">
-                    <form action="/satuan/delete/<?= $st['id_satuan']; ?>" method="post">
-                        <?= csrf_field(); ?>
-                        <input type="hidden" name="_method" value="DELETE">
+                
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-danger" href="">Hapus</button>
-                    </form>
+                        
+                        <a type="submit" class="btn btn-danger del-button" href="">Hapus</a>
+
                 </div>
             </div>
         </div>
     </div>
+    <!-- </Hapus Modal> -->
 
 
 </div>
+
+<script src="path/to/jquery.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#hapusModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)
+        var id_satuan = button.data('id_satuan')
+        var modal = $(this)
+        modal.find('.del-button').attr('href', '/satuan/delete/' + id_satuan)
+    })
+})
+</script>
+
+<script>
+    $.ajax({
+    type: "POST",
+    url: "<?= base_url('satuan/getDataUpdate') ?>",
+    data: {id_satuan: "<?= $st['id_satuan']; ?>"},
+    success: function (response) {
+        // action to be performed on success
+    }
+});
+</script>
 <?= $this->endSection(); ?>

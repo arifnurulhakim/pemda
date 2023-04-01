@@ -3,7 +3,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-700"><b>Tambah Data RPJMD 2016-2021</b></h1>
+    <h1 class="h3 mb-4 text-gray-700"><b>Edit Data RPJMD 2016-2021</b></h1>
 
     <div class="card shadow mb-4">
         <div class="card-body">

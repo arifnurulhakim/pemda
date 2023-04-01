@@ -37,9 +37,9 @@
 
                                     <a type="button" class="btn btn-info" href="<?= base_url('admin/perangkatdaerah/edit-perangkatdaerah/' . $pd['slug']); ?>">
                                         <i class="fas fa-info-circle"></i> Edit</a>
-                                    <a type='button' class="btn btn-danger" href="#" data-toggle="modal" data-target="#hapusModal">
-                                        Hapus
-                                    </a>
+                                        <a type='button' class="btn btn-danger" href="#" data-toggle="modal" data-target="#hapusModal" data-id_pd="<?= $pd['id_pd']; ?>">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
 
                                 </td>
                             </tr>
@@ -65,17 +65,28 @@
                     kembali.</div>
 
                 <div class="modal-footer">
-                    <form action="/perangkatdaerah/delete/<?= $pd['id_pd']; ?>" method="post">
-                        <?= csrf_field(); ?>
-                        <input type="hidden" name="_method" value="DELETE">
+                
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-danger" href="">Hapus</button>
-                    </form>
+                        
+                        <a type="submit" class="btn btn-danger del-button" href="">Hapus</a>
+
                 </div>
             </div>
         </div>
     </div>
+    <script src="path/to/jquery.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#hapusModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)
+        var id_pd = button.data('id_pd')
+        var modal = $(this)
+        modal.find('.del-button').attr('href', '/perangkatdaerah/delete/' + id_pd)
+    })
+})
+</script>
 
 
 </div>

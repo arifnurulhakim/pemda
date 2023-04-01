@@ -19,15 +19,36 @@
         <div class="card-header py-3">
             <a class="btn btn-primary" href="<?= base_url('admin/rkpd/create'); ?>"><i class="fas fa-plus-circle"></i>
                 Tambah Data rkpd</a>
-            <a class="btn btn-success" href="<?= base_url('admin/rkpd/exportExcel'); ?>"><i class="fas fa-info-circle"></i>
+                <a class="btn btn-success" type="button" id="export_button"><i class="fas fa-info-circle"></i>
                 Export Excel</a>
 
                 <div class="card-body">
+                <div class="row mb-3">
+                <div class="col">
+                <div class="form-group">
+                <select class="form-control" id="tahun_rkpd" name="tahun_rkpd">
+                    <option value="">-- Pilih Tahun Program --</option>
+                    <?php
+                    $tahun_rkpd = array();
+                    foreach ($rkpd as $rkpds) {
+                        if (!in_array($rkpds['tahun_rkpd'], $tahun_rkpd)) {
+                            array_push($tahun_rkpd, $rkpds['tahun_rkpd']);
+                        }
+                    }
+                    foreach ($tahun_rkpd as $tahun) {
+                        echo "<option value='$tahun'>$tahun</option>";
+                    }
+                    ?>
+                </select>
+                </div>
+                </div>
+                </div>
+               
     <div class="table-responsive">
         <table class="table table-bordered" id="dataTableRkpd" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th>id_rkpd</th>
+                    <th>no</th>
                     <th>id_kode_rekening</th>
                     <th>id_pd</th>
                     <th>program</th>
@@ -35,21 +56,22 @@
                     <th>target</th>
                     <th>id_satuan</th>
                     <th>pagu</th>
-                    <th>id_kab</th>
                     <th>sumber_dana</th>
                     <th>sumber_dana</th>
                     <th>prioritas_nasional</th>
                     <th>prioritas_daerah</th>
                     <th>kelompok_sasaran</th>
                     <th>tahun_rkpd</th>
+                    <th>aksi</th>
+
                 </tr>
             </thead>
             <tbody>
                 <?php 
-                 $urutan = 0;
+                 $urutan = 1;
                  foreach ($rkpd as $rkpds): ?>
                 <tr>
-                    <td><?= $rkpds['id_rkpd'] ?></td>
+                    <td><?= $urutan ?></td>
                     <td><?= $rkpds['id_kode_rekening'] ?></td>
                     <td><?= $rkpds['id_pd'] ?></td>
                     <td><?= $rkpds['program'] ?></td>
@@ -324,4 +346,69 @@ $(document).ready(function() {
     }
 });
 </script>
+<script>
+  $(document).ready(function() {
+    // define filter function
+    function filterTable() {
+      var tahun_rkpd = $('#tahun_rkpd').val().toString();
+      $('#dataTableRkpd tbody tr').each(function() {
+        var current_row = $(this);
+        var tahun_match = tahun_rkpd === '' || current_row.find('td:eq(13)').text().indexOf(tahun_rkpd) !== -1;
+        current_row.toggle(tahun_match);
+      });
+    }
+    // filter table on change of tahun_rkpd
+    $('#tahun_rkpd').change(filterTable);
+  });
+</script>
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+
+<script>
+function html_table_to_excel(type)
+{
+    var data = document.getElementById('dataTableRkpd');
+    var headers = [];
+    var rows = [];
+
+    // Extract headers
+    for (var i = 0; i < data.rows[0].cells.length; i++) {
+        if (i < data.rows[0].cells.length - 1) {
+            headers[i] = data.rows[0].cells[i].innerText.toLowerCase().replace(/ /gi, '_');
+        }
+    }
+
+    // Extract data rows
+    for (var i = 1; i < data.rows.length; i++) {
+        var tableRow = data.rows[i];
+        var rowData = {};
+
+        for (var j = 0; j < tableRow.cells.length; j++) {
+            if (j < tableRow.cells.length - 1) {
+                rowData[headers[j]] = tableRow.cells[j].innerText;
+            }
+        }
+
+        rows.push(rowData);
+    }
+
+    // Create workbook and worksheet
+    var wb = XLSX.utils.book_new();
+    var ws = XLSX.utils.json_to_sheet(rows);
+
+    // Add worksheet to workbook
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    // Write to file and download
+    XLSX.writeFile(wb, 'Data-RKPD-' + new Date().toISOString().slice(0, 19).replace(/:/g, '-') + '.' + type);
+}
+
+const export_button = document.getElementById('export_button');
+
+export_button.addEventListener('click', () =>  {
+    html_table_to_excel('xlsx');
+});
+
+</script>
+
+
 <?= $this->endSection(); ?>

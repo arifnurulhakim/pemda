@@ -7,27 +7,27 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="/satuan/update/<?= $result['id_satuan']; ?>" method="POST" enctype="multipart/form-data">
+            <form action="/satuan/update/<?= $id_satuan ?>" method="POST" enctype="multipart/form-data">
                 <?= csrf_field(); ?>
-                <input type="hidden" name="slug_satuan" value="<?= $result['slug_satuan']; ?>" name="slug_satuan">
+                <input type="hidden" name="id_satuan" value="<?= $id_satuan ?>" name="id_satuan">
                 <div class="row mb-3">
-                    <div class="col">
-                        <label for="nama_satuan"><b>Nama Satuan</b></label><input id="nama_satuan" name="nama_satuan" for="nama_satuan" class="form-control <?= $validation->hasError('nama_satuan') ? 'is-invalid' : ''; ?>" type="text" placeholder="" value="<?= old('nama_satuan', $result['nama_satuan']); ?>">
+                <div class="col">
+                        <label for="nama_satuan"><b>nama satuan</b></label>&nbsp;&nbsp;<span class="badge badge-light bg-gray-200" style="color: grey;"><b>Wajib</b></span><input id="nama_satuan" name="nama_satuan" for="nama_satuan" class="form-control <?= $validation->hasError('nama_satuan') ? 'is-invalid' : ''; ?>" type="text" placeholder="" value="<?= $nama_satuan ?>">
                         <div class="invalid-feedback">
                             <?= $validation->getError('nama_satuan'); ?>
                         </div>
-                    </div>
+                </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col">
-                        <label for="deskripsi_satuan"><b>Deskripsi</b></label><textarea class="form-control <?= $validation->hasError('deskripsi_satuan') ? 'is-invalid' : ''; ?>" id="deskripsi_satuan" name="deskripsi_satuan" for='deskripsi_satuan' rows="3" value="<?= old('deskripsi_satuan'); ?>"><?= $result['deskripsi_satuan']; ?></textarea>
+                <div class="col">
+                        <label for="deskripsi_satuan"><b>deskripsi</b></label>&nbsp;&nbsp;<span class="badge badge-light bg-gray-200" style="color: grey;"><b>Wajib</b></span><input id="deskripsi_satuan" name="deskripsi_satuan" for="deskripsi_satuan" class="form-control <?= $validation->hasError('deskripsi_satuan') ? 'is-invalid' : ''; ?>" type="text" placeholder="" value="<?= $deskripsi_satuan ?>">
                         <div class="invalid-feedback">
                             <?= $validation->getError('deskripsi_satuan'); ?>
                         </div>
-                    </div>
                 </div>
+</div>
 
-                <button type='submit' class="btn btn-primary" href="/satuan/edit">Ubah Data</button>
+                <button type='submit' class="btn btn-primary" href="">update Data</button>
                 <button class="btn btn-danger" type="reset">Batal</button>
             </form>
         </div>

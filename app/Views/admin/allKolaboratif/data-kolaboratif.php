@@ -20,19 +20,55 @@
         <div class="card-header py-3">
             <a class="btn btn-primary" href="<?= base_url('admin/kolaboratif/create'); ?>"><i class="fas fa-plus-circle"></i>
                 Tambah Data kolaboratif</a>
-            <a class="btn btn-success" href="<?= base_url('admin/kolaboratif/exportExcel'); ?>"><i class="fas fa-info-circle"></i>
+                <a class="btn btn-success" type="button" id="export_button"><i class="fas fa-info-circle"></i>
                 Export Excel</a>
 
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterModal">
-  Filter Tabel
-</button>
-
+                </div>
+                
                 <div class="card-body">
+                <div class="row mb-3">
+                <div class="col">
+                <div class="form-group">
+                <select class="form-control" id="tahun_program" name="tahun_program">
+                    <option value="">-- Pilih Tahun Program --</option>
+                    <?php
+                    $tahun_program = array();
+                    foreach ($kolaboratif as $kolaboratifs) {
+                        if (!in_array($kolaboratifs['tahun_program'], $tahun_program)) {
+                            array_push($tahun_program, $kolaboratifs['tahun_program']);
+                        }
+                    }
+                    foreach ($tahun_program as $tahun) {
+                        echo "<option value='$tahun'>$tahun</option>";
+                    }
+                    ?>
+                </select>
+                </div>
+                </div>
+                <div class="col">
+                <div class="form-group">
+                <select class="form-control" id="jenis_program" name="jenis_program">
+                    <option value="">-- Pilih Jenis Program --</option>
+                    <?php
+                    $jenis_program = array();
+                    foreach ($kolaboratif as $kolaboratifs) {
+                        if (!in_array($kolaboratifs['jenis_program'], $jenis_program)) {
+                            array_push($jenis_program, $kolaboratifs['jenis_program']);
+                        }
+                    }
+                    foreach ($jenis_program as $jenis) {
+                        echo "<option value='$jenis'>$jenis</option>";
+                    }
+                    ?>
+                </select>
+                </div>
+                </div>
+             
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTablekolaboratif" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                <th>ID Kolaboratif</th>
+                                <th>no</th>
                                 <th>Jenis Program</th>
                                 <th>Nama Program</th>
                                 <th>Indikator</th>
@@ -47,15 +83,18 @@
                                 <th>Alamat</th>
                                 <th>Sumber Pendanaan</th>
                                 <th>Progres</th>
-                                
+                                <th>aksi</th>
                                 </tr>
                             </thead>
             <tbody>
+
+
             <?php 
-                 $urutan = 0;
+            // var_dump($kolaboratif);
+                 $urutan = 1;
                  foreach ($kolaboratif as $kolaboratifs): ?>
                 <tr>
-                        <td><?= $kolaboratifs['id_kolaboratif'] ?></td>
+                        <td><?= $urutan ?></td>
                         <td><?= $kolaboratifs['jenis_program'] ?></td>
                         <td><?= $kolaboratifs['nama_program'] ?></td>
                         <td><?= $kolaboratifs['indikator'] ?></td>
@@ -100,109 +139,11 @@
             </div>
         </div>
     </div>
-            </div>
-            </div>
-    <!-- Grafik Modal -->
-    <div class="modal fade" id="grafikModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tampilan Grafik</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <div class="row">
-                        <!-- <div class="col-md-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3>Multiple Line Series</h3>
-                                </div>
-                                <div id="chart2" class="panel-body">
-                                </div>
-                            </div>
-                        </div> -->
-                        <div class="col">
-                            <?php
-                            // print_r($kolaboratifs);
-                            // foreach ($kolaboratif as $key => $value) {
-                            // $kolaboratif[]=$value['t17'];
-                            // $trg[]=$value['t18'];
-                            // $trg[]=$value['t19'];
-                            // $trg[]=$value['t20'];
-                            // $trg[]=$value['t21'];
-                            //    $trg[]= $value['t17'];
-                            //    $trg[]= $value['t18'];
-                            //    $trg[]= $value['t19'];
-                            //    $trg[]= $value['t20'];
-                            //    $trg[]= $value['t21'];
-                            // }
-                            // echo json_encode($trg);
-                            ?>
-                            <!-- Area Chart -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 id='titleIndikator' class="m-0 font-weight-bold text-primary">Area Chart</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <form action="" method="post">
-                        <?= csrf_field(); ?>
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button class="btn btn-warning" type="button" data-dismiss="modal" onclick="destroyChart()">Tutup</button>
-                        <input type="hidden" name="_method" value="DELETE">
-
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-   <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="filterModalLabel">Filter Tabel Kolaboratif</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="filter-form">
-        <div class="form-group">
-    <label for="tahun_program">Tahun Program</label>
-    <input type="text" class="form-control" id="tahun_program" name="tahun_program" placeholder="Tahun (yyyy)" maxlength="4" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
-</div>
-
-<div class="form-group">
-  <label for="jenis_program">Jenis Program</label>
-  <select class="form-control" id="jenis_program" name="jenis_program">
-    <option value="">-- Pilih Jenis Program --</option>
-    <option value="rumah">Rumah</option>
-    <option value="sanisasi">Sanitasi</option>
-    <option value="tni">TNI</option>
-  </select>
-</div>
-          <button type="submit" class="btn btn-primary" id="filter-btn">Filter</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+           
+        
 
 
-
+   
     <!-- Hapus Modal-->
     <div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -326,62 +267,80 @@ $(document).ready(function() {
 });
 </script>
 
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+
+<link rel="stylesheet" type="text/css" href="css/datatables.min.css">
+  <script type="text/javascript" src="js/datatables.min.js"></script>
+<script>
   $(document).ready(function() {
-    // Tampilkan modal filter saat tombol "Filter" ditekan
-    $("#filter-btn").click(function() {
-      $("#filterModal").modal("show");
-    });
-
-    // Kirim data filter ke controller saat tombol "Submit" ditekan
-    $("#filter-form").submit(function(e) {
-      e.preventDefault();
-      var tahun_program = $("#tahun_program").val();
-      var jenis_program = $("#jenis_program").val();
- 
-      $.ajax({
-        url: "<?= base_url('kolaboratif/filter') ?>",
-        type: "POST",
-        data: {
-            tahun_program: tahun_program,
-            jenis_program: jenis_program
-        },
-        success: function(data) {
-          $("#dataTablekolaboratif tbody").html(data);
-          $("#filterModal").modal("hide");
-        },
-        error: function() {
-          alert("Terjadi kesalahan saat mengirim data filter");
-        }
+    // define filter function
+    
+    function filterTable() {
+      var jenis_program = $('#jenis_program').val();
+      var tahun_program = $('#tahun_program').val().toString();
+      $('#dataTablekolaboratif tbody tr').each(function() {
+        var current_row = $(this);
+        var jenis_match = jenis_program === '' || current_row.find('td:eq(1)').text().indexOf(jenis_program) !== -1;
+        var tahun_match = tahun_program === '' || current_row.find('td:eq(4)').text().indexOf(tahun_program) !== -1;
+        current_row.toggle(jenis_match && tahun_match);
       });
-    });
+    }
+
+    // filter table on change of jenis_program
+    $('#jenis_program').change(filterTable);
+
+    // filter table on change of tahun_program
+    $('#tahun_program').change(filterTable);
   });
-</script> -->
+  </script>
 
+<script>
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 
-<!-- <script type="text/javascript">
-    $(document).ready(function() {
-        
-        // Handle filter form submit event
-        $('#filter-form').submit(function(e) {
-            e.preventDefault(); // Prevent default form submission
+function html_table_to_excel(type)
+{
+    var data = document.getElementById('dataTablekolaboratif');
+    var headers = [];
+    var rows = [];
 
-            // Get filter form data
-            var formData = $(this).serialize();
+    // Extract headers
+    for (var i = 0; i < data.rows[0].cells.length; i++) {
+        if (i < data.rows[0].cells.length - 1) {
+            headers[i] = data.rows[0].cells[i].innerText.toLowerCase().replace(/ /gi, '_');
+        }
+    }
 
-            // Send ajax request to filter data
-            $.ajax({
-                type: 'POST',
-                url: '<?php echo base_url('kolaboratif/filter'); ?>',
-                data: formData,
-                success: function(response) {
-                    // Render filtered data table
-                    $('#dataTablekolaboratif').html(response);
-                }
-            });
-        });
-    });
-</script> -->
+    // Extract data rows
+    for (var i = 1; i < data.rows.length; i++) {
+        var tableRow = data.rows[i];
+        var rowData = {};
+
+        for (var j = 0; j < tableRow.cells.length; j++) {
+            if (j < tableRow.cells.length - 1) {
+                rowData[headers[j]] = tableRow.cells[j].innerText;
+            }
+        }
+
+        rows.push(rowData);
+    }
+
+    // Create workbook and worksheet
+    var wb = XLSX.utils.book_new();
+    var ws = XLSX.utils.json_to_sheet(rows);
+
+    // Add worksheet to workbook
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    // Write to file and download
+    XLSX.writeFile(wb, 'Data-Kolaboratif-' + new Date().toISOString().slice(0, 19).replace(/:/g, '-') + '.' + type);
+}
+
+const export_button = document.getElementById('export_button');
+
+export_button.addEventListener('click', () =>  {
+    html_table_to_excel('xlsx');
+});
+
+</script>
 
 
 

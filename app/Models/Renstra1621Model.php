@@ -70,4 +70,14 @@ class Renstra1621Model extends Model
       ->join('kategori_wisata', 'wisata.id_kategori_wisata = kategori_wisata.id_kategori_wisata')
       ->like('nama_kategori_wisata', $cari);
   }
+  public function deleteData($id_renstra1621){
+    return $this->db->table($this->table)->delete(['id_renstra1621' => $id_renstra1621]);
+  }
+  public function getdataupdate($id_renstra1621){
+
+    return $this->db->table($this->table)->where('id_renstra1621', $id_renstra1621)->get()->getResultArray();
+
+    
+  }
+
 }

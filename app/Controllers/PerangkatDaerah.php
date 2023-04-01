@@ -177,19 +177,11 @@ class PerangkatDaerah extends BaseController
     }
     return redirect()->to('/misi')->withInput();
   }
-  public function delete($id_misi)
+  public function delete($id_pd)
   {
-    // cari gambar berdasarkan id
-    // $kategoriWisata = $this->kategoriWisataModel->find($id_misi);
 
-    // // cek jika file gambarnya default.jpg
-    // if($kategoriWisata['gambar_wisata'] != 'default.jpg'){
-    // //hapus gambar
-    // unlink('img/kategori-wisata/' . $kategoriWisata['gambar_wisata']);
-    // }
-
-    $this->PerangkatDaerahModel->delete($id_misi);
+    $this->PerangkatDaerahModel->delete($id_pd);
     session()->setFlashdata('success', 'Data berhasil dihapus!');
-    return redirect()->to('/misi')->withInput();
+    return redirect()->to('/admin/masterData/PerangkatDaerah/')->withInput();
   }
 }

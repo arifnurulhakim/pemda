@@ -99,34 +99,33 @@
                 </div>
 
                 <div class="row mb-3">
-                        <div class="col">
-                            <label for="kecamatan"><b>kecamatan</b></label>&nbsp;&nbsp;<span class="badge badge-light bg-gray-200" style="color: grey;"><b>Wajib</b></span></label>
-                            <select class="form-control <?= $validation->hasError('kecamatan') ? 'is-invalid' : ''; ?>" id="id_kecamatan" name="id_kecamatan">
-                                <option value="">- Pilih kecamatan -</option>
-                                <?php foreach ($kecamatan as $kec) : ?>
-                                    <option value="<?= $kec['id_kecamatan']; ?>" id="id_kecamatan" <?= old('id_kecamatan') == $kec['kecamatan'] ? 'selected' : ''; ?>>
-                                        <?= $kec['kecamatan']; ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                            <div class="invalid-feedback">
-                                <?= $validation->getError('id_kecamatan'); ?>
-                            </div>
+                <div class="col">
+                        <label for="id_kecamatan"><b>Kecamatan</b></label>&nbsp;&nbsp;<span class="badge badge-light bg-gray-200" style="color: grey;"><b>Wajib</b></span>
+                        <select name="kecamatan" id="kecamatan" class="form-control <?= $validation->hasError('id_kecamatan') ? 'is-invalid' : ''; ?>">
+                            <option value="0" selected disabled>-Pilih Kecamatan-</option>
+                            <?php foreach ($kecamatan as $kec) :?>
+                                <option value="<?=$kec['id_kecamatan']; ?>" rel="<?=$kec['id_kecamatan']; ?>"><?=$kec['kecamatan']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <!-- <input id="id_kecamatan" name="id_kecamatan" for="id_kecamatan" class="form-control <?= $validation->hasError('id_kecamatan') ? 'is-invalid' : ''; ?>" type="text" placeholder="-Pilih Kecamatan-" value="<?= old('id_kecamatan'); ?>"> -->
+                        <div class="invalid-feedback">
+                            <?= $validation->getError('id_kecamatan'); ?>
                         </div>
-                        <div class="col">
-                            <label for="desa"><b>desa</b></label>&nbsp;&nbsp;<span class="badge badge-light bg-gray-200" style="color: grey;"><b>Wajib</b></span></label>
-                            <select class="form-control <?= $validation->hasError('desa') ? 'is-invalid' : ''; ?>" id="id_desa" name="id_desa">
-                                <option value="">- Pilih desa -</option>
-                                <?php foreach ($desa as $des) : ?>
-                                    <option value="<?= $des['id_desa']; ?>" id="id_desa" <?= old('id_desa') == $des['desa'] ? 'selected' : ''; ?>>
-                                        <?= $des['desa']; ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                            <div class="invalid-feedback">
-                                <?= $validation->getError('id_desa'); ?>
-                            </div>
+                    </div>
+                    <div class="col">
+                        <label for="id_desa"><b>Desa</b></label>&nbsp;&nbsp;<span class="badge badge-light bg-gray-200" style="color: grey;"><b>Wajib</b></span>
+                        <select name="desa" id="desa" class="form-control <?= $validation->hasError('id_desa') ? 'is-invalid' : ''; ?>">
+                            <option value="0" selected disabled>-Pilih Kecamatan Dahulu-</option>
+                            <?php foreach ($desa as $des) :?>
+                                <option value="<?=$des['id_desa'];?>" class="<?=$des['id_kecamatan']?>" ><?=$des['desa']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <!-- <input id="id_desa" name="id_desa" for="id_desa" class="form-control <?= $validation->hasError('id_desa') ? 'is-invalid' : ''; ?>" type="text" placeholder="" value="<?= old('id_desa'); ?>"> -->
+                        <div class="invalid-feedback">
+                            <?= $validation->getError('id_desa'); ?>
                         </div>
+                    </div>
+>
                     <div class="col">
                         <label for="alamat"><b>alamat</b></label>
                         <input id="alamat" name="alamat" for="alamat" class="form-control <?= $validation->hasError('alamat') ? 'is-invalid' : ''; ?>" type="text" placeholder="" value="<?= old('alamat'); ?>">
@@ -165,5 +164,26 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+
+<script>
+$(document).ready(function(){
+        var $kecamatan = $('select[name=kecamatan'),
+        $desa = $('select[name=desa]');
+        $desa.find("option").hide();
+
+        $kecamatan.change(function(){
+            var $this = $(this).find(':selected'),
+            rel = $this.attr('rel');
+
+            // Hide semua
+            $desa.find("option").hide();
+
+            $set = $desa.find('option.' + rel);
+            $set.show().first().prop('selected', true);
+        });
+    });
+</script>
+
 
 <?= $this->endSection(); ?>
