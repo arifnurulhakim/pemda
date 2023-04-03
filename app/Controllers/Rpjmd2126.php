@@ -12,13 +12,15 @@ use App\Controllers\BaseController;
 
 class Rpjmd2126 extends BaseController
 {
-  // protected $wisataModel;
-  // public function __construct()
-  // {
-  // 	$this->wisataModel = new WisataModel();
-  // }
+  public function __construct()
+  {
+  }
   public function index()
   {
+    $request = \Config\Services::request();
+
+    $segment = $request->uri->getSegment(2);
+
     $rpjmd2126 = $this->Rpjmd2126Model->getRpjmd2126();
     $ikudanikd2126 = $this->Ikudanikd2126Model->getIkudanikd2126();
     $satuan = $this->SatuanModel->getSatuan();
@@ -37,8 +39,8 @@ class Rpjmd2126 extends BaseController
       'topBar' => "Rencana Pembangunan Daerah",
       'menu' => "RPJMD",
       'subMenu' => "RPJMD2126",
+      'segment' => $segment,
     ];
-    // dd($data);
     return view('admin/rencanaPembangunanDaerah/rpjmd2126/data-rpjmd2126', $data);
   }
 

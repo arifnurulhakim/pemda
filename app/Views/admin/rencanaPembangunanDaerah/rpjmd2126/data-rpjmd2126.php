@@ -17,8 +17,10 @@
     <!-- /Alert -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a class="btn btn-primary" href="<?= base_url('admin/rpjmd2126/create'); ?>"><i class="fas fa-plus-circle"></i>
-                Tambah Data RPJMD</a>
+            <?php if (logged_in() === true) { ?>
+                <a class="btn btn-primary" href="<?= base_url('admin/rpjmd2126/create'); ?>"><i class="fas fa-plus-circle"></i>
+                    Tambah Data RPJMD</a>
+            <?php } ?>
             <a class="btn btn-success" href="<?= base_url('admin/rpjmd2126/exportExcel'); ?>"><i class="fas fa-info-circle"></i>
                 Export Excel</a>
 
@@ -27,6 +29,7 @@
                     <table class="table table-bordered" id="dataTableRpjmd2126" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th rowspan="4">No</th>
                                 <th rowspan="4">Misi</th>
                                 <th rowspan="4">Nama Indikator</th>
                                 <th rowspan="4">jenis Indikator</th>
@@ -59,13 +62,15 @@
                         </thead>
 
                         <tbody>
-                            <?php foreach ($rpjmd2126 as $rpjmd2126_1) : ?>
+                            <?php
+                            $urutan = 0;
+                            foreach ($rpjmd2126 as $rpjmd2126_1) : ?>
                                 <tr>
-
+                                    <td><?= $urutan += 1; ?>
                                     <td><?= $rpjmd2126_1['nama_misi2126'] ?></td>
-                                    <td> <?= $rpjmd2126_1['nama_indikator'] ?></td>
-                                    <td> <?= $rpjmd2126_1['jenis_indikator'] ?></td>
-                                    <td> <?= $rpjmd2126_1['nama_satuan'] ?></td>
+                                    <td><?= $rpjmd2126_1['nama_indikator'] ?></td>
+                                    <td><?= $rpjmd2126_1['jenis_indikator'] ?></td>
+                                    <td><?= $rpjmd2126_1['nama_satuan'] ?></td>
 
 
                                     <td> <?= $rpjmd2126_1['t22'] ?></td>

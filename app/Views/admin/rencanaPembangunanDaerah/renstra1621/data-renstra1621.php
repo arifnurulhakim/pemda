@@ -17,20 +17,19 @@
     <!-- /Alert -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a class="btn btn-primary" href="<?= base_url('admin/renstra1621/create'); ?>"><i class="fas fa-plus-circle"></i>
-                Tambah Data Renstra-PD</a>
-                <a class="btn btn-success" href="<?= base_url('admin/renstra1621/exportExcel'); ?>"><i class="fas fa-info-circle"></i>
+            <?php if (logged_in() === true) { ?>
+                <a class="btn btn-primary" href="<?= base_url('admin/renstra1621/create'); ?>"><i class="fas fa-plus-circle"></i>
+                    Tambah Data Renstra-PD</a>
+            <?php } ?>
+            <a class="btn btn-success" href="<?= base_url('admin/renstra1621/exportExcel'); ?>"><i class="fas fa-info-circle"></i>
                 Export Excel</a>
-
-
 
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTableRenstra1621" cellspacing="0">
                         <thead>
                             <tr>
-
-
+                                <th rowspan="4">No</th>
                                 <th rowspan="4">Perangkat Daerah</th>
                                 <th rowspan="4">Indikator Renstra</th>
                                 <th rowspan="4">Satuan</th>
@@ -63,15 +62,14 @@
 
                         <tbody>
 
-                            <?php 
-                             $urutan = 1;
-                             foreach ($renstra1621 as $renstra1621_1) : ?>
+                            <?php
+                            $urutan = 1;
+                            foreach ($renstra1621 as $renstra1621_1) : ?>
                                 <tr>
-
-
-                                    <td> <?= $renstra1621_1['nama_pd'] ?></td>
+                                    <td><?= $urutan; ?>
+                                    <td><?= $renstra1621_1['nama_pd'] ?></td>
                                     <td><?= $renstra1621_1['nama_indikator'] ?></td>
-                                    <td> <?= $renstra1621_1['nama_satuan'] ?></td>
+                                    <td><?= $renstra1621_1['nama_satuan'] ?></td>
 
                                     <td> <?= $renstra1621_1['t17'] ?></td>
                                     <td <?php
@@ -127,32 +125,32 @@
                                             echo 'style="background-color: tomato; color:white;"';
                                         }
                                         ?>> <?= $renstra1621_1['r21'] ?></td>
-                                 
-                                        <td>
+
+                                    <td>
                                         <?php if (in_groups('admin')) : ?>
-                                            <a type='button' class="btn btn-warning" href="/renstra1621/update/<?=$renstra1621_1['id_renstra1621']; ?>" aria-placeholder="">
+                                            <a type='button' class="btn btn-warning" href="/renstra1621/update/<?= $renstra1621_1['id_renstra1621']; ?>" aria-placeholder="">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <!-- <a href="/renstra1621/delete/<?= $renstra1621_1['id_renstra1621']; ?>">Hapus</a> -->
                                             <a type='button' class="btn btn-danger" href="#" data-toggle="modal" data-target="#hapusModal" data-id_renstra1621="<?= $renstra1621_1['id_renstra1621']; ?>">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
-                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $urutan;?>)" data-backdrop="static" data-keyboard="false">
+                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $urutan; ?>)" data-backdrop="static" data-keyboard="false">
                                                 <i class="fas fa-chart-bar"></i>
                                             </a>
                                         <?php else : ?>
-                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $urutan;?>)" data-backdrop="static" data-keyboard="false">
+                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $urutan; ?>)" data-backdrop="static" data-keyboard="false">
                                                 <i class="fas fa-chart-bar"></i>
                                             </a>
                                         <?php endif; ?>
                                     </td>
-                                    
+
 
                                 </tr>
-                                
-                            <?php 
-                             $urutan++;
-                        endforeach; ?>
+
+                            <?php
+                                $urutan++;
+                            endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -244,10 +242,10 @@
                     kembali.</div>
 
                 <div class="modal-footer">
-                
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                        
-                        <a type="submit" class="btn btn-danger del-button" href="">Hapus</a>
+
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+
+                    <a type="submit" class="btn btn-danger del-button" href="">Hapus</a>
 
                 </div>
             </div>
@@ -301,23 +299,25 @@
 <script src="path/to/jquery.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
-    $('#hapusModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget)
-        var id_renstra1621 = button.data('id_renstra1621')
-        var modal = $(this)
-        modal.find('.del-button').attr('href', '/renstra1621/delete/' + id_renstra1621)
+    $(document).ready(function() {
+        $('#hapusModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var id_renstra1621 = button.data('id_renstra1621')
+            var modal = $(this)
+            modal.find('.del-button').attr('href', '/renstra1621/delete/' + id_renstra1621)
+        })
     })
-})
 </script>
 <script>
     $.ajax({
-    type: "POST",
-    url: "<?= base_url('renstra1621/getDataUpdate') ?>",
-    data: {id_renstra1621: "<?= $renstra1621_1['id_renstra1621'] ?>"},
-    success: function (response) {
-        // action to be performed on success
-    }
-});
+        type: "POST",
+        url: "<?= base_url('renstra1621/getDataUpdate') ?>",
+        data: {
+            id_renstra1621: "<?= $renstra1621_1['id_renstra1621'] ?>"
+        },
+        success: function(response) {
+            // action to be performed on success
+        }
+    });
 </script>
 <?= $this->endSection(); ?>

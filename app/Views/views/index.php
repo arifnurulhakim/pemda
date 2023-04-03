@@ -1,5 +1,8 @@
 <?= $this->extend('views/front-templates/index'); ?>
-
+<?php
+//dd(logged_in()); 
+// dd($_SESSION);
+?>
 <?= $this->section('content'); ?>
 <div class="overlay">
     <div class="carousel-indicators">

@@ -20,6 +20,9 @@ class Renstra1621 extends BaseController
 
   public function index()
   {
+    $request = \Config\Services::request();
+
+    $segment = $request->uri->getSegment(2);
 
     $renstra1621 = $this->Renstra1621Model->getRenstra1621();
     $ikudanikd1621 = $this->Ikudanikd1621Model->getIkudanikd1621();
@@ -38,7 +41,7 @@ class Renstra1621 extends BaseController
       'topBar' => "Rencana Pembangunan Daerah",
       'menu' => "RENSTRA",
       'subMenu' => "RENSTRA1621",
-
+      'segment' => $segment,
     ];
     // dd($data);
     return view('admin/rencanaPembangunanDaerah/renstra1621/data-renstra1621', $data);
@@ -163,100 +166,100 @@ class Renstra1621 extends BaseController
 
   public function edit($id_renstra1621)
   {
-// Validasi Data
-if (!$this->validate([
-  'id_satuan' => [
-    'rules' => 'required',
-    'label' => 'Satuan',
-    'errors' => [
-      'required' => 'Satuan harus dipilih'
-    ]
-  ],
+    // Validasi Data
+    if (!$this->validate([
+      'id_satuan' => [
+        'rules' => 'required',
+        'label' => 'Satuan',
+        'errors' => [
+          'required' => 'Satuan harus dipilih'
+        ]
+      ],
 
-  'id_pd' => [
-    'rules' => 'required',
-    'label' => 'perangkatdaerah',
-    'errors' => [
-      'required' => 'Perangkat Daerah harus diisi'
-    ]
-  ],
+      'id_pd' => [
+        'rules' => 'required',
+        'label' => 'perangkatdaerah',
+        'errors' => [
+          'required' => 'Perangkat Daerah harus diisi'
+        ]
+      ],
 
-  'nama_indikator' => [
-    'rules' => 'required',
-    'label' => 'Nama Indikator',
-    'errors' => [
-      'required' => 'Indikator harus diisi',
-      'is_unique' => 'Nama Indikator sudah digunakan'
-    ]
-  ],
-  't17' => [
-    'rules' => 'required',
-    'label' => 't17',
-    'errors' => [
-      'required' => 'Target 2017 harus diisi'
-    ]
-  ],
-  't18' => [
-    'rules' => 'required',
-    'label' => 't18',
-    'errors' => [
-      'required' => 'Target 2018  harus diisi'
-    ]
-  ],
-  't19' => [
-    'rules' => 'required',
-    'label' => 't19',
-    'errors' => [
-      'required' => 'Target 2019  harus diisi'
-    ]
-  ],
-  't20' => [
-    'rules' => 'required',
-    'label' => 't20',
-    'errors' => [
-      'required' => 'Target 2020 harus diisi'
-    ]
-  ],
-  't21' => [
-    'rules' => 'required',
-    'label' => 't21',
-    'errors' => [
-      'required' => 'Target 2021 harus diisi'
-    ]
-  ]
-])) {
-  //Berisi fungsi redirect jika validasi tidak memenuhi
-  // dd(\Config\Services::validation()->getErrors());
-  return redirect()->to("/renstra1621/update/{$id_renstra1621}")->withInput();
-}
+      'nama_indikator' => [
+        'rules' => 'required',
+        'label' => 'Nama Indikator',
+        'errors' => [
+          'required' => 'Indikator harus diisi',
+          'is_unique' => 'Nama Indikator sudah digunakan'
+        ]
+      ],
+      't17' => [
+        'rules' => 'required',
+        'label' => 't17',
+        'errors' => [
+          'required' => 'Target 2017 harus diisi'
+        ]
+      ],
+      't18' => [
+        'rules' => 'required',
+        'label' => 't18',
+        'errors' => [
+          'required' => 'Target 2018  harus diisi'
+        ]
+      ],
+      't19' => [
+        'rules' => 'required',
+        'label' => 't19',
+        'errors' => [
+          'required' => 'Target 2019  harus diisi'
+        ]
+      ],
+      't20' => [
+        'rules' => 'required',
+        'label' => 't20',
+        'errors' => [
+          'required' => 'Target 2020 harus diisi'
+        ]
+      ],
+      't21' => [
+        'rules' => 'required',
+        'label' => 't21',
+        'errors' => [
+          'required' => 'Target 2021 harus diisi'
+        ]
+      ]
+    ])) {
+      //Berisi fungsi redirect jika validasi tidak memenuhi
+      // dd(\Config\Services::validation()->getErrors());
+      return redirect()->to("/renstra1621/update/{$id_renstra1621}")->withInput();
+    }
 
-$user_id = user();
-// $slug = url_title($this->request->getVar('nama_indikator'), '-', true);
-if ($this->Renstra1621Model->update($id_renstra1621,[
-  // 'id_user'     => $this->request->$user_id,
-  // 'id_user'     => $this->request->user_id,
-  'id_pd' => $this->request->getVar('id_pd'),
-  'id_satuan' => $this->request->getVar('id_satuan'),
-  // 'slug' => $slug,
-  'nama_indikator' => $this->request->getVar('nama_indikator'),
-  't17' => $this->request->getVar('t17'),
-  't18' => $this->request->getVar('t18'),
-  't19' => $this->request->getVar('t19'),
-  't20' => $this->request->getVar('t20'),
-  't21' => $this->request->getVar('t21'),
-  'r17' => $this->request->getVar('r17'),
-  'r18' => $this->request->getVar('r18'),
-  'r19' => $this->request->getVar('r19'),
-  'r20' => $this->request->getVar('r20'),
-  'r21' => $this->request->getVar('r21'),
-])) {
-  // dd($_SESSION);
-  // dd($this->request->getVar());
-  session()->setFlashdata('success', 'Data berhasil ditambahkan!');
-} else {
-  session()->setFlashdata('error', 'Data gagal ditambahkan!');
-}
-return redirect()->to('admin/renstra1621');
+    $user_id = user();
+    // $slug = url_title($this->request->getVar('nama_indikator'), '-', true);
+    if ($this->Renstra1621Model->update($id_renstra1621, [
+      // 'id_user'     => $this->request->$user_id,
+      // 'id_user'     => $this->request->user_id,
+      'id_pd' => $this->request->getVar('id_pd'),
+      'id_satuan' => $this->request->getVar('id_satuan'),
+      // 'slug' => $slug,
+      'nama_indikator' => $this->request->getVar('nama_indikator'),
+      't17' => $this->request->getVar('t17'),
+      't18' => $this->request->getVar('t18'),
+      't19' => $this->request->getVar('t19'),
+      't20' => $this->request->getVar('t20'),
+      't21' => $this->request->getVar('t21'),
+      'r17' => $this->request->getVar('r17'),
+      'r18' => $this->request->getVar('r18'),
+      'r19' => $this->request->getVar('r19'),
+      'r20' => $this->request->getVar('r20'),
+      'r21' => $this->request->getVar('r21'),
+    ])) {
+      // dd($_SESSION);
+      // dd($this->request->getVar());
+      session()->setFlashdata('success', 'Data berhasil ditambahkan!');
+    } else {
+      session()->setFlashdata('error', 'Data gagal ditambahkan!');
+    }
+    return redirect()->to('admin/renstra1621');
   }
 
 
@@ -270,31 +273,31 @@ return redirect()->to('admin/renstra1621');
     $id_pd = $alldata[0]['id_pd'];
     $id_satuan = $alldata[0]['id_satuan'];
     $nama_indikator = $alldata[0]['nama_indikator'];
-    $t17	= $alldata[0]['t17'];
-    $r17	= $alldata[0]['r17'];
-    $t18	= $alldata[0]['t18'];
-    $r18	= $alldata[0]['r18'];
-    $t19	= $alldata[0]['t19'];
-    $r19	= $alldata[0]['r19'];
-    $t20	= $alldata[0]['t20'];
-    $r20	= $alldata[0]['r20'];
-    $t21	= $alldata[0]['t21'];
-    $r21	= $alldata[0]['r21'];
+    $t17  = $alldata[0]['t17'];
+    $r17  = $alldata[0]['r17'];
+    $t18  = $alldata[0]['t18'];
+    $r18  = $alldata[0]['r18'];
+    $t19  = $alldata[0]['t19'];
+    $r19  = $alldata[0]['r19'];
+    $t20  = $alldata[0]['t20'];
+    $r20  = $alldata[0]['r20'];
+    $t21  = $alldata[0]['t21'];
+    $r21  = $alldata[0]['r21'];
     $data =
       [
-          'title' => 'renstra1621',
-          'satuan' => $this->SatuanModel->orderby('nama_satuan')->findAll(),
-          'perangkatdaerah' => $this->PerangkatDaerahModel->orderby('nama_pd')->findAll(),
-          'id_renstra1621' => $id_renstra1621,
-          'validation' => \Config\Services::validation(),
-          'satuan' => $this->SatuanModel->orderby('nama_satuan')->findAll(),
-          'perangkatdaerah' => $this->PerangkatDaerahModel->orderby('nama_pd')->findAll(),
-          'id_perangkatdaerah' => $id_pd,
-          'id_satuan' =>$id_satuan,
-          'nama_indikator' =>$nama_indikator,
-          'topBar' => "Rencana Pembangunan Daerah",
-          'menu' => "RENSTRA",
-          'subMenu' => "RENSTRA1621",
+        'title' => 'renstra1621',
+        'satuan' => $this->SatuanModel->orderby('nama_satuan')->findAll(),
+        'perangkatdaerah' => $this->PerangkatDaerahModel->orderby('nama_pd')->findAll(),
+        'id_renstra1621' => $id_renstra1621,
+        'validation' => \Config\Services::validation(),
+        'satuan' => $this->SatuanModel->orderby('nama_satuan')->findAll(),
+        'perangkatdaerah' => $this->PerangkatDaerahModel->orderby('nama_pd')->findAll(),
+        'id_perangkatdaerah' => $id_pd,
+        'id_satuan' => $id_satuan,
+        'nama_indikator' => $nama_indikator,
+        'topBar' => "Rencana Pembangunan Daerah",
+        'menu' => "RENSTRA",
+        'subMenu' => "RENSTRA1621",
         't17' => $t17,
         'r17' => $r17,
         't18' => $t18,
@@ -307,10 +310,10 @@ return redirect()->to('admin/renstra1621');
         'r21' => $r21
       ];
 
-      // dd($data);
-      // return view('admin/index',$data);
-   
-      return view('admin/rencanaPembangunanDaerah/renstra1621/edit-renstra1621', $data);
+    // dd($data);
+    // return view('admin/index',$data);
+
+    return view('admin/rencanaPembangunanDaerah/renstra1621/edit-renstra1621', $data);
   }
 
 
