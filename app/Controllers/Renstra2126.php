@@ -20,6 +20,9 @@ class Renstra2126 extends BaseController
 
   public function index()
   {
+    $request = \Config\Services::request();
+
+    $segment = $request->uri->getSegment(2);
 
     $renstra2126 = $this->Renstra2126Model->getRenstra2126();
     $ikudanikd2126 = $this->Ikudanikd2126Model->getIkudanikd2126();
@@ -38,7 +41,7 @@ class Renstra2126 extends BaseController
       'topBar' => "Rencana Pembangunan Daerah",
       'menu' => "RENSTRA",
       'subMenu' => "RENSTRA2126",
-
+      'segment' => $segment,
     ];
     // dd($data);
     return view('admin/rencanaPembangunanDaerah/renstra2126/data-renstra2126', $data);

@@ -12,11 +12,19 @@
                 <nav id="mainav" class="fl_right">
                     <!-- ################################################################################################ -->
                     <ul class="clear">
-                        <li class="active"><a href="<?= base_url(); ?>/">HOME</a></li>
-                        <li class=""><a class="nav-link" href="/admin/rpjmd1621">RENCANA PEMBANGUNAN</a></li>
-                        <li><a class="" href="<?= base_url(); ?>/view/publikasi">PUBLIKASI</a></li>
-                        <li><a class="" href="<?= base_url(); ?>/view/galeri">GALLERY</a></li>
-                        <li><a class="" href="<?= base_url(); ?>login">LOGIN</a></li>
+                        <?php if (logged_in() === true) { ?>
+                            <li class="active"><a href="<?= base_url(); ?>">HOME</a></li>
+                            <li><a class="" href="<?= base_url('admin/rpjmd1621') ?>">RENCANA PEMBANGUNAN</a></li>
+                            <li><a class="" href="<?= base_url('admin/publikasi'); ?>">PUBLIKASI</a></li>
+                            <li><a class="" href="<?= base_url('admin/galeri'); ?>">GALLERY</a></li>
+                            <li><a class="bg-danger text-white" href="<?= base_url('logout'); ?>">LOGOUT</a></li>
+                        <?php } else { ?>
+                            <li class="active"><a href="<?= base_url(); ?>">HOME</a></li>
+                            <li><a class="" href="<?= base_url('pemda/rpjmd1621') ?>">RENCANA PEMBANGUNAN</a></li>
+                            <li><a class="" href="<?= base_url('admin/publikasi'); ?>">PUBLIKASI</a></li>
+                            <li><a class="" href="<?= base_url('admin/galeri'); ?>">GALLERY</a></li>
+                            <li><a class="bg-success text-white" href="<?= base_url('login'); ?>">LOGIN</a></li>
+                        <?php } ?>
                     </ul>
 
                     <!-- ################################################################################################ -->

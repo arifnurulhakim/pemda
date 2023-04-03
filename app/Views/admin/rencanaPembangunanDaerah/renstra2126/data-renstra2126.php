@@ -17,8 +17,10 @@
     <!-- /Alert -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a class="btn btn-primary" href="<?= base_url('admin/renstra2126/create'); ?>"><i class="fas fa-plus-circle"></i>
-                Tambah Data Renstra-PD</a>
+            <?php if (logged_in() === true) { ?>
+                <a class="btn btn-primary" href="<?= base_url('admin/renstra2126/create'); ?>"><i class="fas fa-plus-circle"></i>
+                    Tambah Data Renstra-PD</a>
+            <?php } ?>
             <a class="btn btn-success" href=""><i class="fas fa-info-circle"></i>
                 Export Excel</a>
 
@@ -27,6 +29,7 @@
                     <table class="table table-bordered" id="dataTableRenstra2126" cellspacing="0">
                         <thead>
                             <tr>
+                                <th rowspan="4">No</th>
                                 <th rowspan="4">Perangkat Daerah</th>
                                 <th rowspan="4">Indikator Renstra</th>
                                 <th rowspan="4">Satuan</th>
@@ -57,10 +60,11 @@
                         </thead>
 
                         <tbody>
-                            <?php foreach ($renstra2126 as $renstra2126_1) : ?>
+                            <?php
+                            $urutan = 0;
+                            foreach ($renstra2126 as $renstra2126_1) : ?>
                                 <tr>
-
-
+                                    <td><?= $urutan += 1; ?>
                                     <td> <?= $renstra2126_1['nama_pd'] ?></td>
                                     <td><?= $renstra2126_1['nama_indikator'] ?></td>
                                     <td> <?= $renstra2126_1['nama_satuan'] ?></td>

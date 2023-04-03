@@ -1,6 +1,9 @@
 <?php
 
 namespace Config;
+
+use App\Controllers\Rpjmd2126;
+
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 
@@ -125,6 +128,14 @@ $routes->get('/kategori', 'Home::index');
 // APLIKASI PEMDA
 
 // Menu Rencana Pembangunan
+// USER
+$routes->get('/pemda/rpjmd1621', 'rpjmd1621::index');
+$routes->get('/pemda/rpjmd2126', 'rpjmd2126::index');
+$routes->get('/pemda/renstra1621', 'renstra1621::index');
+$routes->get('/pemda/renstra2126', 'renstra2126::index');
+$routes->get('/pemda/rkpd', 'Rkpd::index');
+$routes->get('/pemda/kolaboratif', 'Kolaboratif::index');
+
 // RPJMD 1621
 
 $routes->get('/admin/dashboard', 'Admin::dashboard', ['filter' => 'role:admin']);
@@ -140,7 +151,7 @@ $routes->put('/admin/rpjmd1621/update-rpjmd1621', 'rpjmd1621::edit', ['filter' =
 $routes->get('/admin/rpjmd1621/edit-rpjmd1621/(:segment)', 'rpjmd1621::edit/$1', ['filter' => 'role:admin']);
 $routes->post('/admin/rpjmd1621/edit-rpjmd1621/(:num)', 'rpjmd1621::update/$1', ['filter' => 'role:admin']);
 
-$routes->get('/admin/rpjmd1621/exportExcel', 'rpjmd1621::exportExcel', ['filter' => 'role:admin']);
+$routes->get('/rpjmd1621/exportExcel', 'rpjmd1621::exportExcel');
 
 // rkpd
 

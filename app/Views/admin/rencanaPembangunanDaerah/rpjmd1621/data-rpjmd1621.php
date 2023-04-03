@@ -7,7 +7,6 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-700"><b>Data RPJMD 2016 - 2021</b></h1>
-
     <!-- Alert -->
     <?php if (session()->getFlashdata('success')) : ?>
         <div class="alert alert-success" role="alert">
@@ -17,9 +16,11 @@
     <!-- /Alert -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a class="btn btn-primary" href="<?= base_url('admin/rpjmd1621/create'); ?>"><i class="fas fa-plus-circle"></i>
-                Tambah Data RPJMD</a>
-            <a class="btn btn-success" href="<?= base_url('admin/rpjmd1621/exportExcel'); ?>"><i class="fas fa-info-circle"></i>
+            <?php if (logged_in() === true) { ?>
+                <a class="btn btn-primary" href="<?= base_url('admin/rpjmd1621/create'); ?>"><i class="fas fa-plus-circle"></i>
+                    Tambah Data RPJMD</a>
+            <?php } ?>
+            <a class="btn btn-success" href="<?= base_url('rpjmd1621/exportExcel'); ?>"><i class="fas fa-info-circle"></i>
                 Export Excel</a>
 
             <div class="card-body">
@@ -27,7 +28,7 @@
                     <table class="table table-bordered" id="dataTableRpjmd1621" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th rowspan="4">id</th>
+                                <th rowspan="4">No</th>
                                 <th rowspan="4">Misi</th>
                                 <th rowspan="4">Nama Indikator</th>
                                 <th rowspan="4">jenis Indikator</th>
@@ -60,12 +61,12 @@
                         </thead>
 
                         <tbody>
-                            <?php 
+                            <?php
                             $urutan = 1;
                             foreach ($rpjmd1621 as $rpjmd1621_1) : ?>
                                 <tr>
 
-                                    <td><?= $rpjmd1621_1['id_rpjmd1621'] ?></td>
+                                    <td><?= $urutan ?></td>
                                     <td><?= $rpjmd1621_1['nama_misi'] ?></td>
                                     <td> <?= $rpjmd1621_1['nama_indikator'] ?></td>
                                     <td> <?= $rpjmd1621_1['jenis_indikator'] ?></td>
@@ -128,26 +129,26 @@
                                         ?>> <?= $rpjmd1621_1['r21'] ?></td>
                                     <td>
                                         <?php if (in_groups('admin')) : ?>
-                                            <a type='button' class="btn btn-warning" href="/rpjmd1621/update/<?=$rpjmd1621_1['id_rpjmd1621']; ?>" aria-placeholder="">
+                                            <a type='button' class="btn btn-warning" href="/rpjmd1621/update/<?= $rpjmd1621_1['id_rpjmd1621']; ?>" aria-placeholder="">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <!-- <a href="/rpjmd1621/delete/<?= $rpjmd1621_1['id_rpjmd1621']; ?>">Hapus</a> -->
                                             <a type='button' class="btn btn-danger" href="#" data-toggle="modal" data-target="#hapusModal" data-id_rpjmd1621="<?= $rpjmd1621_1['id_rpjmd1621']; ?>">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
-                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $urutan;?>)" data-backdrop="static" data-keyboard="false">
+                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $urutan; ?>)" data-backdrop="static" data-keyboard="false">
                                                 <i class="fas fa-chart-bar"></i>
                                             </a>
                                         <?php else : ?>
-                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $urutan;?>)" data-backdrop="static" data-keyboard="false">
+                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $urutan; ?>)" data-backdrop="static" data-keyboard="false">
                                                 <i class="fas fa-chart-bar"></i>
                                             </a>
                                         <?php endif; ?>
                                     </td>
                                 </tr>
-                            <?php 
+                            <?php
                                 $urutan++;
-                                endforeach; ?>
+                            endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -237,10 +238,10 @@
                     kembali.</div>
 
                 <div class="modal-footer">
-                
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                        
-                        <a type="submit" class="btn btn-danger del-button" href="">Hapus</a>
+
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+
+                    <a type="submit" class="btn btn-danger del-button" href="">Hapus</a>
 
                 </div>
             </div>
@@ -253,13 +254,12 @@
 <!-- <script src="<?= base_url(); ?>/vendor/chart.js/Chart.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-
     var dataTarget = [];
     var dataRealisasi = [];
     const target = <?php echo json_encode($rpjmd1621); ?>;
     var myChart;
 
-    function getDataTargetRealisasi(id){
+    function getDataTargetRealisasi(id) {
         // Mengosongkan array
         dataTarget = [];
         dataRealisasi = [];
@@ -277,7 +277,7 @@
         dataRealisasi.push(parseFloat(target[id]['r21']));
 
         document.getElementById('titleIndikator').innerHTML = target[id]['nama_indikator'];
-        
+
         var ctx = document.getElementById('myChart');
         myChart = new Chart(ctx, {
             type: 'line',
@@ -318,11 +318,12 @@
             }
         });
     };
-    function destroyChart(){
+
+    function destroyChart() {
         myChart.destroy();
     }
-        
-    
+
+
 
     // var ctx = document.getElementById('myChart');
     // var myChart = new Chart(ctx, {
@@ -368,25 +369,27 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-$(document).ready(function() {
-    $('#hapusModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget)
-        var id_rpjmd1621 = button.data('id_rpjmd1621')
-        var modal = $(this)
-        modal.find('.del-button').attr('href', '/rpjmd1621/delete/' + id_rpjmd1621)
+    $(document).ready(function() {
+        $('#hapusModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var id_rpjmd1621 = button.data('id_rpjmd1621')
+            var modal = $(this)
+            modal.find('.del-button').attr('href', '/rpjmd1621/delete/' + id_rpjmd1621)
+        })
     })
-})
 </script>
 
 <script>
     $.ajax({
-    type: "POST",
-    url: "<?= base_url('rpjmd1621/getDataUpdate') ?>",
-    data: {id_rpjmd1621: "<?= $rpjmd1621_1['id_rpjmd1621'] ?>"},
-    success: function (response) {
-        // action to be performed on success
-    }
-});
+        type: "POST",
+        url: "<?= base_url('rpjmd1621/getDataUpdate') ?>",
+        data: {
+            id_rpjmd1621: "<?= $rpjmd1621_1['id_rpjmd1621'] ?>"
+        },
+        success: function(response) {
+            // action to be performed on success
+        }
+    });
 </script>
 
 <?= $this->endSection(); ?>

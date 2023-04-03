@@ -59,14 +59,7 @@
                                             <?= lang('Auth.loginAction') ?>
                                         </button>
                                     </form>
-
                                     <hr>
-
-                                    <?php if ($config->allowRegistration) : ?>
-                                        <div class="text-center">
-                                            <a class="small" href="<?= url_to('register') ?>"><?= lang('Auth.needAnAccount') ?></a>
-                                        </div>
-                                    <?php endif; ?>
                                     <?php if ($config->activeResetter) : ?>
                                         <div class="text-center">
                                             <a class="small" href="<?= url_to('forgot') ?>"><?= lang('Auth.forgotYourPassword') ?></a>

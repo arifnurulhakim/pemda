@@ -4,43 +4,47 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Controllers\BaseController;
+
 class Kolaboratif extends BaseController
 {
 
     public function index()
     {
+        $request = \Config\Services::request();
+
+        $segment = $request->uri->getSegment(2);
 
         // Get all kolaboratif data
         $kolaboratif = $this->KolaboratifModel->getKolaboratifJoin();
         $data = [
-                    'title' => 'Daftar Kolaboratif',
-                    'subTitle' => 'kolaboratif',
-                    'jenis_program' => $this->JenisProgramModel->findAll(),
-                    'kolaboratif' => $kolaboratif,
-                    'menu' => "kolaboratif",
-                ];
-
+            'title' => 'Daftar Kolaboratif',
+            'subTitle' => 'kolaboratif',
+            'jenis_program' => $this->JenisProgramModel->findAll(),
+            'kolaboratif' => $kolaboratif,
+            'menu' => "kolaboratif",
+            'segment' => $segment,
+        ];
         return view('/admin/allKolaboratif/data-kolaboratif', $data);
     }
 
     public function create()
     {
-      $data =
-        [
-          'title' => 'kolaboratif',
-          'rekening' => $this->KodeRekeningModel->orderby('kode_rekening')->findAll(),
-          'pd' => $this->PerangkatDaerahModel->orderby('nama_pd')->findAll(),
-          'satuan' => $this->SatuanModel->orderby('nama_satuan')->findAll(),
-          'kecamatan' => $this->KecamatanModel->orderby('kecamatan')->findAll(),
-          'desa' => $this->DesaModel->orderby('desa')->findAll(),
-          'jenis_program' => $this->JenisProgramModel->orderby('jenis_program')->findAll(),
-          'tahun_program' => $this->JenisProgramModel->orderby('tahun_program')->findAll(),
-          'validation' => \Config\Services::validation()
-        ];
-  
-      // dd($data);
-      // return view('admin/index',$data);
-      return view('/admin/allKolaboratif/create-kolaboratif', $data);
+        $data =
+            [
+                'title' => 'kolaboratif',
+                'rekening' => $this->KodeRekeningModel->orderby('kode_rekening')->findAll(),
+                'pd' => $this->PerangkatDaerahModel->orderby('nama_pd')->findAll(),
+                'satuan' => $this->SatuanModel->orderby('nama_satuan')->findAll(),
+                'kecamatan' => $this->KecamatanModel->orderby('kecamatan')->findAll(),
+                'desa' => $this->DesaModel->orderby('desa')->findAll(),
+                'jenis_program' => $this->JenisProgramModel->orderby('jenis_program')->findAll(),
+                'tahun_program' => $this->JenisProgramModel->orderby('tahun_program')->findAll(),
+                'validation' => \Config\Services::validation()
+            ];
+
+        // dd($data);
+        // return view('admin/index',$data);
+        return view('/admin/allKolaboratif/create-kolaboratif', $data);
     }
 
     public function store()
@@ -70,7 +74,7 @@ class Kolaboratif extends BaseController
     public function edit($id_kolaboratif)
     {
         $allData = $this->KolaboratifModel->find($id_kolaboratif);
-    
+
         $data = [
             'title' => 'kolaboratif',
             'rekening' => $this->KodeRekeningModel->orderBy('kode_rekening')->findAll(),
@@ -95,14 +99,14 @@ class Kolaboratif extends BaseController
             'progres' => $allData['progres'],
             'validation' => \Config\Services::validation(),
         ];
-    
+
         return view('/admin/allKolaboratif/edit-kolaboratif', $data);
     }
-    
-    
+
+
     public function update($id_kolaboratif)
     {
-        if ($this->KolaboratifModel->update( $id_kolaboratif,[
+        if ($this->KolaboratifModel->update($id_kolaboratif, [
             'id_jenis_program' => $this->request->getVar('id_jenis_program'),
             'nama_program' => $this->request->getVar('nama_program'),
             'indikator' => $this->request->getVar('indikator'),
@@ -126,17 +130,17 @@ class Kolaboratif extends BaseController
 
 
     public function delete($id_kolaboratif)
-  {
-    $this->KolaboratifModel->deleteData($id_kolaboratif);
-    session()->setFlashdata('success', 'Data berhasil dihapus!');
-    return redirect()->to('/kolaboratif')->withInput();
-  }
-  public function getDesaByKecamatan()
-  {
-      $kecamatanId = $this->request->getPost('kecamatan_id');
+    {
+        $this->KolaboratifModel->deleteData($id_kolaboratif);
+        session()->setFlashdata('success', 'Data berhasil dihapus!');
+        return redirect()->to('/kolaboratif')->withInput();
+    }
+    public function getDesaByKecamatan()
+    {
+        $kecamatanId = $this->request->getPost('kecamatan_id');
 
-      $data = $this->desaModel->where('id_kecamatan', $kecamatanId)->findAll();
+        $data = $this->desaModel->where('id_kecamatan', $kecamatanId)->findAll();
 
-      return json_encode($data);
-  }
+        return json_encode($data);
+    }
 }
