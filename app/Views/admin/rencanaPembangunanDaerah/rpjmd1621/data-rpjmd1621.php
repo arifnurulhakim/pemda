@@ -62,15 +62,16 @@
 
                         <tbody>
                             <?php
-                            $urutan = 1;
+                            $urutan = 0;
+                            $idData = 0;
                             foreach ($rpjmd1621 as $rpjmd1621_1) : ?>
                                 <tr>
 
-                                    <td><?= $urutan ?></td>
+                                    <td><?= $urutan += 1; ?></td>
                                     <td><?= $rpjmd1621_1['nama_misi'] ?></td>
-                                    <td> <?= $rpjmd1621_1['nama_indikator'] ?></td>
-                                    <td> <?= $rpjmd1621_1['jenis_indikator'] ?></td>
-                                    <td> <?= $rpjmd1621_1['nama_satuan'] ?></td>
+                                    <td><?= $rpjmd1621_1['nama_indikator'] ?></td>
+                                    <td><?= $rpjmd1621_1['jenis_indikator'] ?></td>
+                                    <td><?= $rpjmd1621_1['nama_satuan'] ?></td>
 
 
                                     <td> <?= $rpjmd1621_1['t17'] ?></td>
@@ -136,18 +137,18 @@
                                             <a type='button' class="btn btn-danger" href="#" data-toggle="modal" data-target="#hapusModal" data-id_rpjmd1621="<?= $rpjmd1621_1['id_rpjmd1621']; ?>">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
-                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $urutan; ?>)" data-backdrop="static" data-keyboard="false">
+                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $idData;  ?>)" data-backdrop="static" data-keyboard="false">
                                                 <i class="fas fa-chart-bar"></i>
                                             </a>
                                         <?php else : ?>
-                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $urutan; ?>)" data-backdrop="static" data-keyboard="false">
+                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $idData; ?>)" data-backdrop="static" data-keyboard="false">
                                                 <i class="fas fa-chart-bar"></i>
                                             </a>
                                         <?php endif; ?>
                                     </td>
                                 </tr>
                             <?php
-                                $urutan++;
+                                $idData++;
                             endforeach; ?>
                         </tbody>
                     </table>
