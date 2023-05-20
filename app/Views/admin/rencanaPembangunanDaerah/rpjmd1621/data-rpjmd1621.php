@@ -283,9 +283,7 @@
         myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                // labels: <?= json_encode($rpjmd1621) ?>,
                 labels: [2017, 2018, 2019, 2020, 2021],
-                // labels: [$thn17],
                 datasets: [{
                     label: 'Target',
                     data: dataTarget,
@@ -323,48 +321,6 @@
     function destroyChart() {
         myChart.destroy();
     }
-
-
-
-    // var ctx = document.getElementById('myChart');
-    // var myChart = new Chart(ctx, {
-    //     type: 'line',
-    //     data: {
-    //         // labels: <?= json_encode($rpjmd1621) ?>,
-    //         labels: [2017, 2018, 2019, 2020, 2021],
-    //         // labels: [$thn17],
-    //         datasets: [{
-    //             label: 'Target',
-    //             data: [5, 2, 7, 9, 1, 2, 5, 3, 4, 10],
-    //             backgroundColor: [
-    //                 'rgba(255, 99, 132, 0.2)'
-    //             ],
-    //             borderColor: [
-    //                 'rgba(255, 99, 132, 1)'
-    //             ],
-    //             borderWidth: 1
-    //         }, {
-    //             label: 'Realisasi',
-    //             data: [4, 5, 2, 4, 5, 1, 2, 8, 6, 7],
-    //             backgroundColor: [
-    //                 'rgba(3, 138, 255, 0.2)'
-    //             ],
-    //             borderColor: [
-    //                 'rgba(15, 10, 222, 1)'
-    //             ],
-    //             borderWidth: 1
-    //         }]
-    //     },
-    //     options: {
-    //         scales: {
-    //             yAxes: [{
-    //                 ticks: {
-    //                     beginAtZero: true
-    //                 }
-    //             }]
-    //         }
-    //     }
-    // });
 </script>
 <script src="path/to/jquery.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

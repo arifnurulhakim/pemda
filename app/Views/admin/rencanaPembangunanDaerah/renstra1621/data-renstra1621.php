@@ -64,6 +64,7 @@
 
                             <?php
                             $urutan = 1;
+                            $idData = 0;
                             foreach ($renstra1621 as $renstra1621_1) : ?>
                                 <tr>
                                     <td><?= $urutan; ?>
@@ -135,11 +136,11 @@
                                             <a type='button' class="btn btn-danger" href="#" data-toggle="modal" data-target="#hapusModal" data-id_renstra1621="<?= $renstra1621_1['id_renstra1621']; ?>">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
-                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $urutan; ?>)" data-backdrop="static" data-keyboard="false">
+                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $idData; ?>)" data-backdrop="static" data-keyboard="false">
                                                 <i class="fas fa-chart-bar"></i>
                                             </a>
                                         <?php else : ?>
-                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $urutan; ?>)" data-backdrop="static" data-keyboard="false">
+                                            <a type='button' class="btn btn-info" href="#" data-toggle="modal" data-target="#grafikModal" onclick="getDataTargetRealisasi(<?= $idData; ?>)" data-backdrop="static" data-keyboard="false">
                                                 <i class="fas fa-chart-bar"></i>
                                             </a>
                                         <?php endif; ?>
@@ -150,6 +151,7 @@
 
                             <?php
                                 $urutan++;
+                                $idData++;
                             endforeach; ?>
                         </tbody>
                     </table>
@@ -201,7 +203,7 @@
                             <!-- Area Chart -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+                                    <h6 id='titleIndikator' class="m-0 font-weight-bold text-primary">Area Chart</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="chart-area">
@@ -254,46 +256,76 @@
     <!-- </Hapus Modal> -->
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    var ctx = document.getElementById('myChart');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            // labels: <?= json_encode($renstra1621) ?>,
-            labels: [2017, 2018, 2019, 2020, 2021],
-            // labels: [$thn17],
-            datasets: [{
-                label: 'Target',
-                data: [5, 2, 7, 9, 1, 2, 5, 3, 4, 10],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)'
-                ],
-                borderWidth: 1
-            }, {
-                label: 'Realisasi',
-                data: [4, 5, 2, 4, 5, 1, 2, 8, 6, 7],
-                backgroundColor: [
-                    'rgba(3, 138, 255, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(15, 10, 222, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
+    var dataTarget = [];
+    var dataRealisasi = [];
+    const target = <?php echo json_encode($renstra1621); ?>;
+    var myChart;
+    console.log('target', target);
+
+    function getDataTargetRealisasi(id) {
+        console.log('TOL', target[id]['nama_indikator']);
+        // Mengosongkan array
+        dataTarget = [];
+        dataRealisasi = [];
+        // push dataTarget
+        dataTarget.push(parseFloat(target[id]['t17']));
+        dataTarget.push(parseFloat(target[id]['t18']));
+        dataTarget.push(parseFloat(target[id]['t19']));
+        dataTarget.push(parseFloat(target[id]['t20']));
+        dataTarget.push(parseFloat(target[id]['t21']));
+        // push dataRealisasi
+        dataRealisasi.push(parseFloat(target[id]['r17']));
+        dataRealisasi.push(parseFloat(target[id]['r18']));
+        dataRealisasi.push(parseFloat(target[id]['r19']));
+        dataRealisasi.push(parseFloat(target[id]['r20']));
+        dataRealisasi.push(parseFloat(target[id]['r21']));
+
+        document.getElementById('titleIndikator').innerHTML = target[id]['nama_indikator'];
+
+        var ctx = document.getElementById('myChart');
+        myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [2017, 2018, 2019, 2020, 2021],
+                datasets: [{
+                    label: 'Target',
+                    data: dataTarget,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }, {
+                    label: 'Realisasi',
+                    data: dataRealisasi,
+                    backgroundColor: [
+                        'rgba(3, 138, 255, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(15, 10, 222, 1)'
+                    ],
+                    borderWidth: 1
                 }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
             }
-        }
-    });
+        });
+    };
+
+    function destroyChart() {
+        myChart.destroy();
+    };
 </script>
 
 <script src="path/to/jquery.js"></script>
